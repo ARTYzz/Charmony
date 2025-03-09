@@ -146,7 +146,7 @@ export default function HomeScreen() {
         {/* Lucky Colors Section */}
         <TouchableOpacity
           style={styles.colorContainer}
-          onPress={() => navigation.navigate("LuckyColorBoost")} // ✅ Navigate on Click
+          onPress={() => navigation.navigate("luckyColorBoost")} // ✅ Navigate on Click
         >
           <Text style={styles.sectionTitle}>Lucky Color</Text>
           <View style={styles.colorRow}>
