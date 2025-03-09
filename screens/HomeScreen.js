@@ -113,31 +113,22 @@ export default function HomeScreen() {
             ))}
           </View>
         </View>
-          <View style={styles.colorsContainer}>
-              <View style={styles.colorBox}>
-                <Text style={styles.colorTitle}>Lucky Color</Text>
-                <View style={styles.colorBar}>
-                  <View style={[styles.colorSegment, { backgroundColor: "#0000FF", flex: 1 }]}>
-                    <Text style={styles.colorText}>Blue</Text>
-                  </View>
-                  <View style={[styles.colorSegment, { backgroundColor: "#FFEB99", flex: 1 }]}>
-                    <Text style={styles.colorText}>Cream</Text>
-                  </View>
-                </View>
+
+        {/* Unlucky Colors Section */}
+        <View style={styles.colorContainer}>
+          <Text style={styles.sectionTitle}>Unlucky Color</Text>
+          <View style={styles.colorRow}>
+            {unluckyColors.map((color, index) => (
+              <View
+                key={index}
+                style={[styles.colorBox, { backgroundColor: color }]}
+              >
+                <Text style={styles.colorText}>{color}</Text>
               </View>
-              <View style={styles.colorBox}>
-                <Text style={styles.colorTitle}>Unlucky Color</Text>
-                <View style={styles.colorBar}>
-                  <View style={[styles.colorSegment, { backgroundColor: "#FF0000", flex: 1 }]}>
-                    <Text style={styles.colorText}>Red</Text>
-                  </View>
-                  <View style={[styles.colorSegment, { backgroundColor: "orange", flex: 1 }]}>
-                    <Text style={styles.colorText}>Orange</Text>
-                  </View>
-                </View>
-              </View>
+            ))}
           </View>
-      </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -230,11 +221,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 15,
   },
-
-  dayText: { 
-  fontSize: 13,
-  fontWeight: "600",
-  color: "white",
+  selectedDay: {
+    backgroundColor: "#E0E7FF", // Light blue for selected day
+    borderRadius: 15,
   },
-});
+  dayText: { fontSize: 14, fontWeight: "500", color: "#1F2940" },
+  selectedDayText: { fontWeight: "bold", color: "#1F2940" },
 
+  /* COLOR SECTIONS */
+  colorContainer: {
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: "#eee",
+    borderRadius: 10,
+    width: "90%",
+  },
+  sectionTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 5 },
+  colorRow: { flexDirection: "row", justifyContent: "space-between" },
+  colorBox: {
+    flex: 1,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 5,
+    borderRadius: 12,
+  },
+  colorText: { fontSize: 16, fontWeight: "bold", color: "white" },
+});
