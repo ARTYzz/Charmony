@@ -8,7 +8,9 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import LuckyColorBoostScreen from "./LuckyColorBoostScreen";
 const colorData = require("./data/color.json");
 
 export default function HomeScreen() {
@@ -16,6 +18,7 @@ export default function HomeScreen() {
   const [selectedDay, setSelectedDay] = useState(getCurrentDay());
   const [luckyColors, setLuckyColors] = useState([]);
   const [unluckyColors, setUnluckyColors] = useState([]);
+  const navigation = useNavigation();
 
   // Function to get the current weekday (e.g., "Sunday")
   function getCurrentDay() {
@@ -100,7 +103,10 @@ export default function HomeScreen() {
         </View>
 
         {/* Lucky Colors Section */}
-        <View style={styles.colorContainer}>
+        <TouchableOpacity
+          style={styles.colorContainer}
+          onPress={() => navigation.navigate("LuckyColorBoost")} // ✅ Navigate on Click
+        >
           <Text style={styles.sectionTitle}>Lucky Color</Text>
           <View style={styles.colorRow}>
             {luckyColors.map((color, index) => (
@@ -112,7 +118,7 @@ export default function HomeScreen() {
               </View>
             ))}
           </View>
-        </View>
+        </TouchableOpacity>
 
         {/* Unlucky Colors Section */}
         <View style={styles.colorContainer}>
