@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons"; // Ensure this is imported
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
-import "./screens/lan/i18n"; // Import i18n configuration
+import "./screens/lan/i18n";
 import HomeScreen from "./screens/HomeScreen";
 import MatchColorScreen from "./screens/MatchColorScreen";
 import LuckyColorBoostScreen from "./screens/LuckyColorBoostScreen";
@@ -29,7 +29,7 @@ export default function App() {
     loadLanguage();
   }, []);
 
-  if (loading) return null; // Prevent rendering before language is loaded
+  if (loading) return null;
 
   return (
     <LanguageProvider>
@@ -39,24 +39,37 @@ export default function App() {
             tabBarIcon: ({ color, size }) => {
               let iconName;
               switch (route.name) {
-                case "Home":
+                case t("home"):
                   iconName = "home";
                   break;
-                case "MatchColor":
-                  iconName = "color-palette";
+                case t("matchColor"):
+                  iconName = "shirt"; // 👕 Correct icon for "Match Color"
                   break;
-                case "LuckyColorBoost":
-                  iconName = "star";
+                case t("luckyColorBoost"):
+                  iconName = "sparkles"; // ✨ Icon for lucky color boost
                   break;
-                case "DetailColor":
-                  iconName = "eye";
+                case t("detailColor"):
+                  iconName = "color-palette"; // 🎨 Correct icon
                   break;
-                case "Settings":
-                  iconName = "settings";
+                case t("settings"):
+                  iconName = "settings"; // ⚙️ Settings icon
                   break;
+                default:
+                  iconName = "help-circle"; // ❓ Default icon
               }
               return <Ionicons name={iconName} size={size} color={color} />;
             },
+            tabBarStyle: {
+              backgroundColor: "#f8f9fa",
+              paddingBottom: 5,
+              height: 60,
+            },
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontWeight: "bold",
+            },
+            tabBarActiveTintColor: "#5B3E90",
+            tabBarInactiveTintColor: "gray",
           })}
         >
           <Tab.Screen name={t("home")} component={HomeScreen} />
