@@ -1,0 +1,30 @@
+{
+  "Monday": {
+    "lucky": ["#FFD700", "#228B22"],
+    "unlucky": ["#808080", "#8B0000"]
+  },
+  "Tuesday": {
+    "lucky": ["#FF4500", "#00CED1"],
+    "unlucky": ["#4B0082", "#696969"]
+  },
+  "Wednesday": {
+    "lucky": ["#008000", "#0000FF"],
+    "unlucky": ["#B22222", "#DC143C"]
+  },
+  "Thursday": {
+    "lucky": ["#9400D3", "#20B2AA"],
+    "unlucky": ["#2F4F4F", "#A52A2A"]
+  },
+  "Friday": {
+    "lucky": ["#32CD32", "#FFA500"],
+    "unlucky": ["#8B0000", "#808080"]
+  },
+  "Saturday": {
+    "lucky": ["#FF69B4", "#1E90FF"],
+    "unlucky": ["#8B4513", "#000000"]
+  },
+  "Sunday": {
+    "lucky": ["#FF0000", "#FFFF00"],
+    "unlucky": ["#4B0082", "#2F4F4F"]
+  }
+}
