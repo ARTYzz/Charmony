@@ -10,15 +10,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import LuckyColorBoostScreen from "./LuckyColorBoostScreen";
-const colorData = require("./data/color.json");
+import colorData from "./data/color.json";
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   const [warningVisible, setWarningVisible] = useState(true);
   const [selectedDay, setSelectedDay] = useState(getCurrentDay());
   const [luckyColors, setLuckyColors] = useState([]);
   const [unluckyColors, setUnluckyColors] = useState([]);
-  const navigation = useNavigation();
 
   // Function to get the current weekday (e.g., "Sunday")
   function getCurrentDay() {
@@ -31,8 +30,35 @@ export default function HomeScreen() {
       "Friday",
       "Saturday",
     ];
-    return days[new Date().getDay()]; // Get current day name automatically
+    return days[new Date().getDay()];
   }
+
+  // Mapping of Thai color names to HEX codes
+  const colorMap = {
+    สีแดง: "#FF0000",
+    สีส้ม: "#FFA500",
+    สีเทา: "#808080",
+    สีเขียว: "#008000",
+    สีฟ้า: "#00BFFF",
+    สีน้ำเงิน: "#0000FF",
+    สีเหลือง: "#FFFF00",
+    สีขาว: "#FFFFFF",
+    สีม่วง: "#800080",
+    สีดำ: "#000000",
+    สีทอง: "#FFD700",
+    สีชมพู: "#FFC0CB",
+    สีครีม: "#FFF5E1",
+    สีน้ำตาล: "#8B4513",
+  };
+  // Function to determine text color based on brightness (Black for light colors, White for dark colors)
+  const getTextColor = (hex) => {
+    if (!hex) return "#000"; // Default to black
+    const rgb = parseInt(hex.substring(1), 16);
+    const r = (rgb >> 16) & 255,
+      g = (rgb >> 8) & 255,
+      b = rgb & 255;
+    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000" : "#FFF"; // Contrast formula
+  };
 
   // ✅ Load colors from JSON dynamically
   useEffect(() => {
@@ -63,7 +89,7 @@ export default function HomeScreen() {
         </View>
       </Modal>
 
-      {/* Header with CHROMANCY title */}
+      {/* Header */}
       <View style={styles.headerBar}>
         <Text style={styles.logo}>CHROMANCY</Text>
       </View>
@@ -73,14 +99,20 @@ export default function HomeScreen() {
         style={styles.mainContent}
         contentContainerStyle={{ alignItems: "center" }}
       >
-        {/* Weekday Selector */}
+        {/* Weekday Selector with Dates */}
         <View style={styles.weekContainer}>
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
             (day, index) => {
+              const today = new Date();
+              const firstDayOfWeek = new Date(
+                today.setDate(today.getDate() - today.getDay())
+              );
+              const currentDate = new Date(
+                firstDayOfWeek.setDate(firstDayOfWeek.getDate() + index)
+              );
+              const dayNumber = currentDate.getDate(); // Get numeric date
               const fullDayName = getFullDayName(day);
-              const today = getCurrentDay(); // Get today's full day name
-              const isSelected =
-                selectedDay === fullDayName || today === fullDayName;
+              const isSelected = selectedDay === fullDayName;
 
               return (
                 <TouchableOpacity
@@ -96,6 +128,14 @@ export default function HomeScreen() {
                   >
                     {day}
                   </Text>
+                  <Text
+                    style={[
+                      styles.dayNumber,
+                      isSelected && styles.selectedDayText,
+                    ]}
+                  >
+                    {dayNumber}
+                  </Text>
                 </TouchableOpacity>
               );
             }
@@ -109,14 +149,21 @@ export default function HomeScreen() {
         >
           <Text style={styles.sectionTitle}>Lucky Color</Text>
           <View style={styles.colorRow}>
-            {luckyColors.map((color, index) => (
-              <View
-                key={index}
-                style={[styles.colorBox, { backgroundColor: color }]}
-              >
-                <Text style={styles.colorText}>{color}</Text>
-              </View>
-            ))}
+            {luckyColors.map((color, index) => {
+              const bgColor = colorMap[color] || "#D3D3D3"; // Default to light gray if not found
+              return (
+                <View
+                  key={index}
+                  style={[styles.colorBox, { backgroundColor: bgColor }]}
+                >
+                  <Text
+                    style={[styles.colorText, { color: getTextColor(bgColor) }]}
+                  >
+                    {color}
+                  </Text>
+                </View>
+              );
+            })}
           </View>
         </TouchableOpacity>
 
@@ -124,14 +171,21 @@ export default function HomeScreen() {
         <View style={styles.colorContainer}>
           <Text style={styles.sectionTitle}>Unlucky Color</Text>
           <View style={styles.colorRow}>
-            {unluckyColors.map((color, index) => (
-              <View
-                key={index}
-                style={[styles.colorBox, { backgroundColor: color }]}
-              >
-                <Text style={styles.colorText}>{color}</Text>
-              </View>
-            ))}
+            {unluckyColors.map((color, index) => {
+              const bgColor = colorMap[color] || "#D3D3D3"; // Default to light gray if not found
+              return (
+                <View
+                  key={index}
+                  style={[styles.colorBox, { backgroundColor: bgColor }]}
+                >
+                  <Text
+                    style={[styles.colorText, { color: getTextColor(bgColor) }]}
+                  >
+                    {color}
+                  </Text>
+                </View>
+              );
+            })}
           </View>
         </View>
       </ScrollView>
@@ -153,11 +207,9 @@ function getFullDayName(shortDay) {
   return mapping[shortDay];
 }
 
-// Styles (Updated for Figma Design)
+// Styles
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
-
-  /* MODAL */
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -180,11 +232,10 @@ const styles = StyleSheet.create({
   warningTextDescription: { textAlign: "center", color: "#1F2940" },
   closeButton: { position: "absolute", top: 10, right: 10 },
 
-  /* HEADER */
   headerBar: {
     width: "100%",
     height: 140,
-    backgroundColor: "#FFFFFF", // White background
+    backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
     borderBottomLeftRadius: 25,
@@ -193,18 +244,17 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 5, // Android shadow effect
+    elevation: 5,
   },
   logo: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#6C63FF", // Blue color from Figma
+    color: "#6C63FF",
     textAlign: "center",
     letterSpacing: 1.5,
     fontFamily: "Poppins-Bold",
   },
 
-  /* WEEKDAY SELECTOR */
   weekContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -218,7 +268,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // Android shadow effect
+    elevation: 3,
   },
   dayBox: {
     width: 50,
@@ -228,13 +278,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   selectedDay: {
-    backgroundColor: "#E0E7FF", // Light blue for selected day
+    backgroundColor: "#E0E7FF",
     borderRadius: 15,
   },
   dayText: { fontSize: 14, fontWeight: "500", color: "#1F2940" },
   selectedDayText: { fontWeight: "bold", color: "#1F2940" },
 
-  /* COLOR SECTIONS */
   colorContainer: {
     marginTop: 20,
     padding: 15,
@@ -252,5 +301,12 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 12,
   },
-  colorText: { fontSize: 16, fontWeight: "bold", color: "white" },
+  colorText: { fontSize: 16, fontWeight: "bold", color: "black" },
+
+  dayNumber: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "#1F2940",
+    marginTop: 2, // Space between day text and number
+  },
 });
