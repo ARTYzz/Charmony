@@ -37,31 +37,31 @@ export default function LuckyColorBoostScreen() {
             {
               title: "Career",
               icon: "briefcase",
-              color: "#3357FF",
-              name: "Blue",
+              color: "#ffe200",
+              name: "Yellow",
               description:
-                "Blue enhances confidence and credibility in the workplace.",
+                "Yellow enhances confidence and credibility in the workplace.",
             },
             {
               title: "Finance & Wealth",
               icon: "cash",
-              color: "#2de32d",
-              name: "Green",
-              description: "Green enhances fortune and financial stability.",
+              color: "#0000FF",
+              name: "Blue",
+              description: "Blue enhances luck and opportunities in life.",
             },
             {
               title: "Luck & Fortune",
               icon: "star",
-              color: "#ffe200",
-              name: "Yellow",
-              description: "Yellow enhances luck and opportunities in life.",
+              color: "#008000",
+              name: "Green",
+              description: "Green enhances fortune and financial stability.",
             },
             {
               title: "Charm & Relationships",
               icon: "heart",
-              color: "#f92b70",
-              name: "Pink",
-              description: "Pink enhances charm and positive relationships.",
+              color: "#800080",
+              name: "Purple",
+              description: "Purple enhances charm and positive relationships.",
             },
           ].map((item, index) => (
             <View key={index} style={styles.colorSection}>
