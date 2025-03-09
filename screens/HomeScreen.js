@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import colorData from "./data/color.json";
+import colorData from "./data/color.json"; // ✅ Load local JSON
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -18,6 +18,34 @@ export default function HomeScreen() {
   const [selectedDay, setSelectedDay] = useState(getCurrentDay());
   const [luckyColors, setLuckyColors] = useState([]);
   const [unluckyColors, setUnluckyColors] = useState([]);
+
+  // Mapping of Thai color names to HEX codes
+  const colorMap = {
+    Red: "#FF0000",
+    Orange: "#FFA500",
+    Gray: "#808080",
+    Green: "#008000",
+    "Light Blue": "#00BFFF",
+    Blue: "#0000FF",
+    Yellow: "#FFFF00",
+    White: "#FFFFFF",
+    Purple: "#800080",
+    Black: "#000000",
+    Gold: "#FFD700",
+    Pink: "#FFC0CB",
+    Cream: "#FFF5E1",
+    Brown: "#8B4513",
+  };
+
+  // Function to determine text color based on brightness (Black for light colors, White for dark colors)
+  const getTextColor = (hex) => {
+    if (!hex) return "#000"; // Default to black
+    const rgb = parseInt(hex.substring(1), 16);
+    const r = (rgb >> 16) & 255,
+      g = (rgb >> 8) & 255,
+      b = rgb & 255;
+    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000" : "#FFF"; // Contrast formula
+  };
 
   // Function to get the current weekday (e.g., "Sunday")
   function getCurrentDay() {
@@ -32,33 +60,6 @@ export default function HomeScreen() {
     ];
     return days[new Date().getDay()];
   }
-
-  // Mapping of Thai color names to HEX codes
-  const colorMap = {
-    สีแดง: "#FF0000",
-    สีส้ม: "#FFA500",
-    สีเทา: "#808080",
-    สีเขียว: "#008000",
-    สีฟ้า: "#00BFFF",
-    สีน้ำเงิน: "#0000FF",
-    สีเหลือง: "#FFFF00",
-    สีขาว: "#FFFFFF",
-    สีม่วง: "#800080",
-    สีดำ: "#000000",
-    สีทอง: "#FFD700",
-    สีชมพู: "#FFC0CB",
-    สีครีม: "#FFF5E1",
-    สีน้ำตาล: "#8B4513",
-  };
-  // Function to determine text color based on brightness (Black for light colors, White for dark colors)
-  const getTextColor = (hex) => {
-    if (!hex) return "#000"; // Default to black
-    const rgb = parseInt(hex.substring(1), 16);
-    const r = (rgb >> 16) & 255,
-      g = (rgb >> 8) & 255,
-      b = rgb & 255;
-    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000" : "#FFF"; // Contrast formula
-  };
 
   // ✅ Load colors from JSON dynamically
   useEffect(() => {
@@ -302,7 +303,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   colorText: { fontSize: 16, fontWeight: "bold", color: "black" },
-
   dayNumber: {
     fontSize: 12,
     fontWeight: "400",

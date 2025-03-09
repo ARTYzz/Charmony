@@ -1,30 +1,30 @@
 {
   "Sunday": {
-    "lucky": ["สีแดง", "สีส้ม", "สีเทา", "สีเขียว"],
-    "unlucky": ["สีฟ้า", "สีน้ำเงิน"]
+    "lucky": ["Red", "Orange", "Gray", "Green"],
+    "unlucky": ["Light Blue", "Blue"]
   },
   "Monday": {
-    "lucky": ["สีเหลือง", "สีขาว", "สีม่วง", "สีเขียว"],
-    "unlucky": ["สีส้ม", "สีแดง"]
+    "lucky": ["Yellow", "White", "Purple", "Green"],
+    "unlucky": ["Orange", "Red"]
   },
   "Tuesday": {
-    "lucky": ["สีดำ", "สีเหลือง", "สีแดง", "สีส้ม"],
-    "unlucky": ["สีขาว"]
+    "lucky": ["Black", "Yellow", "Red", "Orange"],
+    "unlucky": ["White"]
   },
   "Wednesday": {
-    "lucky": ["สีเขียว", "สีเทา", "สีทอง", "สีม่วง"],
-    "unlucky": ["สีชมพู", "สีแดง"]
+    "lucky": ["Green", "Gray", "Gold", "Purple"],
+    "unlucky": ["Pink", "Red"]
   },
   "Thursday": {
-    "lucky": ["สีฟ้า", "สีแดง", "สีส้ม", "สีครีม"],
-    "unlucky": ["สีม่วง", "สีดำ"]
+    "lucky": ["Light Blue", "Red", "Orange", "Cream"],
+    "unlucky": ["Purple", "Black"]
   },
   "Friday": {
-    "lucky": ["สีชมพู", "สีครีม", "สีชมพู", "สีส้ม"],
-    "unlucky": ["สีน้ำตาล"]
+    "lucky": ["Pink", "Cream", "Peach", "Orange"],
+    "unlucky": ["Brown"]
   },
   "Saturday": {
-    "lucky": ["สีดำ", "สีน้ำเงิน", "สีแดง", "สีฟ้า"],
-    "unlucky": ["สีเขียว"]
+    "lucky": ["Black", "Navy Blue", "Red", "Light Blue"],
+    "unlucky": ["Green"]
   }
 }

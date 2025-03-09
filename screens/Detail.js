@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import "../screens/CSS/Detail.css";
 
 export default function DetailColorScreen() {
   const navigation = useNavigation();
@@ -61,7 +60,6 @@ export default function DetailColorScreen() {
         <View style={styles.colorContainer}>
           {colorsOfTheDay.map((item, index) => (
             <View key={index} style={styles.colorSection}>
-              
               <View style={[styles.colorBox, { backgroundColor: item.color }]}>
                 <Text style={styles.colorName}>{item.name}</Text>
               </View>
@@ -86,7 +84,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  backButton: { position: "absolute", left: 10, justifyContent: "center", padding: 10 },
+  backButton: {
+    position: "absolute",
+    left: 10,
+    justifyContent: "center",
+    padding: 10,
+  },
   logo: {
     color: "white",
     fontSize: 24,
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   mainContent: { marginTop: 100, padding: 20, backgroundColor: "#fff" },
   colorContainer: { marginTop: 20 },
   colorSection: { marginBottom: 20, alignItems: "center" },
-  
+
   colorBox: {
     width: "90%",
     height: 60,

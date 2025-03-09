@@ -1,5 +1,4 @@
-// screens/SettingsScreen.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,14 +10,30 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
+  const { t, i18n } = useTranslation();
   const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
-  const [language, setLanguage] = useState("English");
   const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
-  const toggleNotification = () =>
-    setIsNotificationEnabled((previousState) => !previousState);
+  const [language, setLanguage] = useState(i18n.language);
+
+  useEffect(() => {
+    const loadLanguage = async () => {
+      const lang = await AsyncStorage.getItem("appLanguage");
+      if (lang) setLanguage(lang);
+    };
+    loadLanguage();
+  }, []);
+
+  const changeLanguage = async (lang) => {
+    await AsyncStorage.setItem("appLanguage", lang);
+    i18n.changeLanguage(lang);
+    setLanguage(lang);
+    setLanguageModalVisible(false);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,15 +44,15 @@ export default function SettingsScreen() {
         >
           <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={styles.logo}>Settings</Text>
+        <Text style={styles.logo}>{t("settings")}</Text>
       </View>
 
       <View style={styles.settingContainer}>
         <View style={styles.settingItem}>
           <Ionicons name="color-palette-outline" size={24} color="black" />
-          <Text style={styles.settingText}>Color Theme</Text>
+          <Text style={styles.settingText}>{t("theme")}</Text>
           <View style={styles.settingRight}>
-            <Text style={styles.settingValue}>Light</Text>
+            <Text style={styles.settingValue}>{t("light")}</Text>
             <TouchableOpacity>
               <Ionicons
                 name="chevron-forward-outline"
@@ -49,36 +64,58 @@ export default function SettingsScreen() {
         </View>
 
         <View style={styles.settingItem}>
-        <TouchableOpacity onPress={() => setLanguageModalVisible(true)} style={styles.settingItem}>
-          <Ionicons name="language-outline" size={24} color="black" />
-          <Text style={styles.settingText}>Language</Text>
-          <View style={styles.settingRight}>
-            <Text style={styles.settingValue}>{language}</Text>
-            <Ionicons name="chevron-forward-outline" size={24} color="black" />
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setLanguageModalVisible(true)}
+            style={styles.settingItem}
+          >
+            <Ionicons name="language-outline" size={24} color="black" />
+            <Text style={styles.settingText}>{t("language")}</Text>
+            <View style={styles.settingRight}>
+              <Text style={styles.settingValue}>{t(language)}</Text>
+              <Ionicons
+                name="chevron-forward-outline"
+                size={24}
+                color="black"
+              />
+            </View>
+          </TouchableOpacity>
         </View>
-        
+
         <View style={styles.settingItem}>
           <Ionicons name="notifications-outline" size={24} color="black" />
-          <Text style={styles.settingText}>Notification</Text>
+          <Text style={styles.settingText}>{t("notification")}</Text>
           <Switch
             value={isNotificationEnabled}
-            onValueChange={toggleNotification}
+            onValueChange={() => setIsNotificationEnabled((prev) => !prev)}
           />
         </View>
       </View>
+
       <Modal visible={isLanguageModalVisible} transparent animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <TouchableOpacity onPress={() => { setLanguage("English"); setLanguageModalVisible(false); }}>
-              <Text style={[styles.modalOption, language === "English" && styles.selectedOption]}>English</Text>
+            <TouchableOpacity onPress={() => changeLanguage("en")}>
+              <Text
+                style={[
+                  styles.modalOption,
+                  language === "en" && styles.selectedOption,
+                ]}
+              >
+                {t("english")}
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { setLanguage("Thai"); setLanguageModalVisible(false); }}>
-              <Text style={[styles.modalOption, language === "Thai" && styles.selectedOption]}>Thai</Text>
+            <TouchableOpacity onPress={() => changeLanguage("th")}>
+              <Text
+                style={[
+                  styles.modalOption,
+                  language === "th" && styles.selectedOption,
+                ]}
+              >
+                {t("thai")}
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setLanguageModalVisible(false)}>
-              <Text style={styles.cancelOption}>Cancel</Text>
+              <Text style={styles.cancelOption}>{t("cancel")}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -98,14 +135,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  backButton: { position: "absolute", left: 10, justifyContent: "center", padding: 10 },
-  logo: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    justifyContent: "center"
-  },
+  backButton: { position: "absolute", left: 10, padding: 10 },
+  logo: { color: "white", fontSize: 24, fontWeight: "bold" },
   settingContainer: { marginTop: 100, padding: 20 },
   settingItem: {
     flexDirection: "row",
@@ -118,7 +149,6 @@ const styles = StyleSheet.create({
   settingText: { fontSize: 18, flex: 1, marginLeft: 10 },
   settingRight: { flexDirection: "row", alignItems: "center" },
   settingValue: { fontSize: 16, marginRight: 10, color: "gray" },
-
   modalContainer: {
     flex: 1,
     justifyContent: "flex-end",
@@ -139,7 +169,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   selectedOption: { fontWeight: "bold", textDecorationLine: "underline" },
-  cancelOption: { color: "red", fontSize: 18, paddingVertical: 12, textAlign: "center" },
+  cancelOption: {
+    color: "red",
+    fontSize: 18,
+    paddingVertical: 12,
+    textAlign: "center",
+  },
 });
-
-
