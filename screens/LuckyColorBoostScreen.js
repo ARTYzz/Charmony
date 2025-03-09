@@ -31,7 +31,7 @@ export default function LuckyColorBoostScreen() {
         style={styles.mainContent}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.dateText}>Monday, 3 March 2025</Text>
+        <Text style={styles.dateText}>Sunday, 9 March 2025</Text>
         <View style={styles.colorContainer}>
           {[
             {

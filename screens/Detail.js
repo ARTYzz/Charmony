@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import "../screens/CSS/Detail.css";
 
 export default function DetailColorScreen() {
   const navigation = useNavigation();

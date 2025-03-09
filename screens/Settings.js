@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Switch,
+  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -14,6 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const [isNotificationEnabled, setIsNotificationEnabled] = useState(false);
+  const [language, setLanguage] = useState("English");
+  const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
   const toggleNotification = () =>
     setIsNotificationEnabled((previousState) => !previousState);
 
@@ -46,20 +49,16 @@ export default function SettingsScreen() {
         </View>
 
         <View style={styles.settingItem}>
+        <TouchableOpacity onPress={() => setLanguageModalVisible(true)} style={styles.settingItem}>
           <Ionicons name="language-outline" size={24} color="black" />
           <Text style={styles.settingText}>Language</Text>
           <View style={styles.settingRight}>
-            <Text style={styles.settingValue}>English</Text>
-            <TouchableOpacity>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={24}
-                color="black"
-              />
-            </TouchableOpacity>
+            <Text style={styles.settingValue}>{language}</Text>
+            <Ionicons name="chevron-forward-outline" size={24} color="black" />
           </View>
+        </TouchableOpacity>
         </View>
-
+        
         <View style={styles.settingItem}>
           <Ionicons name="notifications-outline" size={24} color="black" />
           <Text style={styles.settingText}>Notification</Text>
@@ -69,6 +68,21 @@ export default function SettingsScreen() {
           />
         </View>
       </View>
+      <Modal visible={isLanguageModalVisible} transparent animationType="slide">
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity onPress={() => { setLanguage("English"); setLanguageModalVisible(false); }}>
+              <Text style={[styles.modalOption, language === "English" && styles.selectedOption]}>English</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { setLanguage("Thai"); setLanguageModalVisible(false); }}>
+              <Text style={[styles.modalOption, language === "Thai" && styles.selectedOption]}>Thai</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setLanguageModalVisible(false)}>
+              <Text style={styles.cancelOption}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -104,4 +118,28 @@ const styles = StyleSheet.create({
   settingText: { fontSize: 18, flex: 1, marginLeft: 10 },
   settingRight: { flexDirection: "row", alignItems: "center" },
   settingValue: { fontSize: 16, marginRight: 10, color: "gray" },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    paddingVertical: 20,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    alignItems: "center",
+  },
+  modalOption: {
+    fontSize: 18,
+    paddingVertical: 12,
+    color: "#000",
+    width: "100%",
+    textAlign: "center",
+  },
+  selectedOption: { fontWeight: "bold", textDecorationLine: "underline" },
+  cancelOption: { color: "red", fontSize: 18, paddingVertical: 12, textAlign: "center" },
 });
+
+
