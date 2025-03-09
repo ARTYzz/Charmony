@@ -37,31 +37,31 @@ export default function LuckyColorBoostScreen() {
             {
               title: "Career",
               icon: "briefcase",
-              color: "#ffe200",
-              name: "Yellow",
+              color: "#FF0000",
+              name: "Red",
               description:
-                "Yellow enhances confidence and credibility in the workplace.",
+                "Red enhances confidence and credibility in the workplace.",
             },
             {
               title: "Finance & Wealth",
               icon: "cash",
-              color: "#0000FF",
-              name: "Blue",
-              description: "Blue enhances luck and opportunities in life.",
+              color: "#FFA500",
+              name: "Orange",
+              description: "Orange enhances luck and opportunities in life.",
             },
             {
               title: "Luck & Fortune",
               icon: "star",
-              color: "#008000",
-              name: "Green",
-              description: "Green enhances fortune and financial stability.",
+              color: "#808080",
+              name: "Gray",
+              description: "Gray enhances fortune and financial stability.",
             },
             {
               title: "Charm & Relationships",
               icon: "heart",
-              color: "#800080",
-              name: "Purple",
-              description: "Purple enhances charm and positive relationships.",
+              color: "#008000",
+              name: "Green",
+              description: "Green enhances charm and positive relationships.",
             },
           ].map((item, index) => (
             <View key={index} style={styles.colorSection}>
@@ -70,7 +70,9 @@ export default function LuckyColorBoostScreen() {
                 <Text style={styles.sectionTitle}>{item.title}</Text>
               </View>
               <View style={styles.colorBoxContainer}>
-                <View style={[styles.colorBox, { backgroundColor: item.color }]}>
+                <View
+                  style={[styles.colorBox, { backgroundColor: item.color }]}
+                >
                   <Text style={styles.colorText}>{item.name}</Text>
                 </View>
               </View>
@@ -94,7 +96,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  backButton: { position: "absolute", left: 10, justifyContent: "center", padding: 10 },
+  backButton: {
+    position: "absolute",
+    left: 10,
+    justifyContent: "center",
+    padding: 10,
+  },
 
   logo: {
     color: "white",
@@ -102,17 +109,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     justifyContent: "center",
-
-    
   },
   mainContent: { marginTop: 100, padding: 20, backgroundColor: "#fff" },
-  dateText: { fontSize: 15, fontWeight:  "medium", color: "#1F2940"},
+  dateText: { fontSize: 15, fontWeight: "medium", color: "#1F2940" },
   colorContainer: { marginTop: 20 },
   colorSection: { marginBottom: 20 },
   colorHeader: { flexDirection: "row", alignItems: "center", marginBottom: 10 },
 
-  sectionTitle: { fontSize: 18, fontWeight: "bold", marginLeft: 10, color: "#1F2940"},
-  
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginLeft: 10,
+    color: "#1F2940",
+  },
+
   colorBoxContainer: {
     marginBottom: 5,
     backgroundColor: "#eee9f8",
@@ -131,5 +141,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   colorText: { color: "white", fontWeight: "bold", paddingLeft: 10 },
-  description: { fontSize: 14, color: "#5B3E90"},
+  description: { fontSize: 14, color: "#5B3E90" },
 });
