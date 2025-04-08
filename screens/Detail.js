@@ -21,7 +21,7 @@ export default function DetailColorScreen() {
       description: "Helps enhance confidence and positive energy.",
     },
     {
-      color: "#FFA500",
+      color: "#FFB500",
       name: "Orange",
       description: "Helps enhance creativity and fortune.",
     },
