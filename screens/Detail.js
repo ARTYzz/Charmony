@@ -16,7 +16,7 @@ export default function DetailColorScreen() {
 
   const colorsOfTheDay = [
     {
-      color: "#FF0000",
+      color: "#FFF000",
       name: "Red",
       description: "Helps enhance confidence and positive energy.",
     },
