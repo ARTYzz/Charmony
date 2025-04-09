@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import colorData from "./data/color.json"; // ✅ Load local JSON
+import colorData from "./data/color.json";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -61,7 +61,7 @@ export default function HomeScreen() {
     return days[new Date().getDay()];
   }
 
-  // ✅ Load colors from JSON dynamically
+  // Load colors from JSON dynamically
   useEffect(() => {
     const colors = colorData[selectedDay] || { lucky: [], unlucky: [] };
     setLuckyColors(colors.lucky);
