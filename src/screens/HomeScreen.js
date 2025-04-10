@@ -26,18 +26,18 @@ const { width } = Dimensions.get('window');
 // Color Mapping (HEX codes for color names)
 // =============================================
 const COLOR_MAP = {
-  Red: "#FF0000",
-  Orange: "#FFA500",
+  Red: "#e8413c",
+  Orange: "#F0AD4E",
   Gray: "#808080",
-  Green: "#008000",
-  "Light Blue": "#00BFFF",
-  Blue: "#0000FF",
+  Green: "#5CB85C",
+  "Light Blue": "#87CEEB",
+  Blue: "#5BC0DE",
   Yellow: "#FFFF00",
   White: "#FFFFFF",
-  Purple: "#800080",
+  Purple: "#9B59B6",
   Black: "#000000",
   Gold: "#FFD700",
-  Pink: "#FFC0CB",
+  Pink: "#EBA6B9",
   Cream: "#FFF5E1",
   Brown: "#8B4513",
 };
@@ -256,7 +256,7 @@ export default function HomeScreen() {
             <View style={[styles.colorContainer, { backgroundColor: theme.cardBackground }]}>
               {/* หัวข้อสีอัปมงคล */}
               <View style={styles.colorHeaderRow}>
-                <Text style={[styles.sectionTitle, { color: theme.textColor }]}>
+                <Text style={[styles.sectionTitle, { color: '#FF6B6B' }]}>
                   {t("Daily Unlucky Color")}
                 </Text>
                 <View style={[styles.colorIndicator, styles.unluckyIndicator]}>
@@ -342,6 +342,7 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   selectedDayTitle: {
+    fontWeight: 700,
     fontSize: 17,
     fontFamily: 'Nunito-SemiBold',
   },
@@ -354,6 +355,7 @@ const styles = StyleSheet.create({
   // Section Header
   highlightHeader: {
     fontSize: 18,
+    fontWeight: 700,
     fontFamily: 'Nunito-SemiBold',
     marginVertical: 10,
     marginLeft: 10,
@@ -383,7 +385,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "650",
     fontFamily: 'Nunito-Bold',
   },
   
