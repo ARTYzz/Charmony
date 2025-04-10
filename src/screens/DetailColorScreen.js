@@ -16,29 +16,99 @@ export default function DetailColorScreen() {
 
   const colorsOfTheDay = [
     {
-      color: "#FF0000",
+      color: "#e8413c",
       name: "Red",
       description: "Helps enhance confidence and positive energy.",
     },
     {
-      color: "#FFB500",
+      color: "#E67E22",
       name: "Orange",
       description: "Helps enhance creativity and fortune.",
     },
     {
-      color: "#aa2a54",
+      color: "#C71585",
       name: "Deep Pink",
       description: "Helps enhance love and personal charm.",
     },
     {
-      color: "#33FF57",
+      color: "#FFB6C1",
+      name: "Light Pink",
+      description: "Helps enhance tenderness and affection.",
+    },
+    {
+      color: "#C4E1C1",
+      name: "Green",
+      description: "Helps enhance growth and harmony.",
+    },
+    {
+      color: "#006400",
+      name: "Deep Green",
+      description: "Helps enhance stability and grounding.",
+    },
+    {
+      color: "#A8D5BA",
       name: "Light Green",
       description: "Helps enhance health and inner peace.",
     },
     {
-      color: "#3357FF",
+      color: "#ADD8E6",
+      name: "Light Blue",
+      description: "Helps enhance tranquility and clarity.",
+    },
+    {
+      color: "#5BC0DE",
       name: "Blue",
       description: "Helps enhance wisdom and intelligence.",
+    },
+    {
+      color: "#FFFF00",
+      name: "Yellow",
+      description: "Helps enhance optimism and creativity.",
+    },
+    {
+      color: "#BEBEBE",
+      name: "Gray",
+      description: "Helps enhance balance and neutrality.",
+    },
+    {
+      color: "#FFFFFF",
+      name: "White",
+      description: "Helps enhance purity and clarity.",
+    },
+    {
+      color: "#000000",
+      name: "Black",
+      description: "Helps enhance sophistication and strength.",
+    },
+    {
+      color: "#800080",
+      name: "Purple",
+      description: "Helps enhance spirituality and ambition.",
+    },
+    {
+      color: "#D8B7DD",
+      name: "Light Purple",
+      description: "Helps enhance calmness and creativity.",
+    },
+    {
+      color: "#6A0DAD",
+      name: "Deep Purple",
+      description: "Helps enhance wisdom and intuition.",
+    },
+    {
+      color: "#FFD700",
+      name: "Gold",
+      description: "Helps enhance success and luxury.",
+    },
+    {
+      color: "#FFF5E1",
+      name: "Cream",
+      description: "Helps enhance warmth and comfort.",
+    },
+    {
+      color: "#8B4513",
+      name: "Brown",
+      description: "Helps enhance stability and security.",
     },
   ];
 
@@ -76,6 +146,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: 23,
+    marginBottom: 110,
   },
   colorContainer: { 
     marginTop: 5
@@ -92,7 +163,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   colorName: { 
-    color: "white", 
+    color: 'white',
     fontWeight: "bold", 
     fontSize: 14 
   },

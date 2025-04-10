@@ -51,7 +51,7 @@ export default function LuckyColorBoostScreen() {
             {
               title: "Career",
               icon: "briefcase",
-              color: "#FF0000",
+              color: "#e8413c",
               name: "Red",
               description:
                 "Red enhances confidence and credibility in the workplace.",
@@ -59,7 +59,7 @@ export default function LuckyColorBoostScreen() {
             {
               title: "Finance & Wealth",
               icon: "cash",
-              color: "#FFA500",
+              color: "#E67E22",
               name: "Orange",
               description: "Orange enhances luck and opportunities in life.",
             },
@@ -73,7 +73,7 @@ export default function LuckyColorBoostScreen() {
             {
               title: "Charm & Relationships",
               icon: "heart",
-              color: "#008000",
+              color: "#5CB85C",
               name: "Green",
               description: "Green enhances charm and positive relationships.",
             },

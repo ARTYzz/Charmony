@@ -37,25 +37,25 @@ export default function MatchColorScreen() {
   const looks = [
     {
       title: "Look 1: Confident",
-      colors: ["#FF0000", "#FFA500", "#2de32d"],
+      colors: ["#e8413c", "#E67E22", "#5CB85C"],
       names: ["Red", "Orange", "Green"],
       descriptions: ["Help enhance confidence and positive energy."],
     },
     {
       title: "Look 2: Health",
-      colors: ["#33FF57", "#28A745", "#85C1E9"],
-      names: ["Light Green", "Deep Green", "Sky Blue"],
+      colors: ["#A8D5BA", "#3B7A57", "#87CEEB"],
+      names: ["Light Green", "Deep Green", "Light Blue"],
       descriptions: ["Help enhance health and peace of mind."],
     },
     {
       title: "Look 3: Creative",
-      colors: ["#3357FF", "#ac2bf9", "#d48cff"],
+      colors: ["#5BC0DE", "#673AB7", "#D1B3C4"],
       names: ["Blue", "Deep Purple", "Light Purple"],
       descriptions: ["Help enhance creativity and inspiration."],
     },
     {
       title: "Look 4: Charm",
-      colors: ["#f92b70", "#aa2a54", "#ff92b6"],
+      colors: ["#EBA6B9", "#C71585", "#F8C8DC"],
       names: ["Pink", "Deep Pink", "Light Pink"],
       descriptions: ["Help enhance love and personal charm."],
     },
