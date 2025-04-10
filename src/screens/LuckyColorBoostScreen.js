@@ -8,30 +8,44 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native"; // <-- Use this for navigation
+import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../context/ThemeContext";
+import { useTranslation } from "react-i18next";
+import OtherHeader from "../components/OtherHeader";
+
+// Function to map abbreviated day names to full names
+function getFullDayName(shortDay) {
+  const mapping = {
+    Sun: "Sunday",
+    Mon: "Monday",
+    Tue: "Tuesday",
+    Wed: "Wednesday",
+    Thu: "Thursday",
+    Fri: "Friday",
+    Sat: "Saturday",
+  };
+  return mapping[shortDay] || shortDay;
+}
 
 export default function LuckyColorBoostScreen() {
-  const navigation = useNavigation(); // <-- Use navigation hook
+  const navigation = useNavigation();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       {/* Header */}
-      <View style={styles.headerBar}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.logo}>🎨 Lucky Colors Boost</Text>
-      </View>
+      <OtherHeader 
+        title={t("boostYourLuck")} 
+        theme={theme} 
+      />
 
       {/* Main Content */}
       <ScrollView
-        style={styles.mainContent}
+        style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.dateText}>Sunday, 9 March 2025</Text>
+        <Text style={[styles.dateText, { color: theme.textColor }]}>Sunday, 9 March 2025</Text>
         <View style={styles.colorContainer}>
           {[
             {
@@ -66,17 +80,17 @@ export default function LuckyColorBoostScreen() {
           ].map((item, index) => (
             <View key={index} style={styles.colorSection}>
               <View style={styles.colorHeader}>
-                <Ionicons name={item.icon} size={24} color="#1F2940" />
-                <Text style={styles.sectionTitle}>{item.title}</Text>
+                <Ionicons name={item.icon} size={24} color={theme.textColor} />
+                <Text style={[styles.sectionTitle, { color: theme.textColor }]}>{item.title}</Text>
               </View>
-              <View style={styles.colorBoxContainer}>
+              <View style={[styles.colorBoxContainer, { backgroundColor: theme.secondaryColor }]}>
                 <View
                   style={[styles.colorBox, { backgroundColor: item.color }]}
                 >
                   <Text style={styles.colorText}>{item.name}</Text>
                 </View>
               </View>
-              <Text style={styles.description}>{item.description}</Text>
+              <Text style={[styles.description, { color: theme.textColor }]}>{item.description}</Text>
             </View>
           ))}
         </View>
@@ -86,53 +100,43 @@ export default function LuckyColorBoostScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
-  headerBar: {
-    position: "absolute",
-    top: 0,
-    width: "100%",
-    height: 100,
-    backgroundColor: "#5B3E90",
-    justifyContent: "center",
-    alignItems: "center",
+  container: { 
+    flex: 1 
   },
-  backButton: {
-    position: "absolute",
-    left: 10,
-    justifyContent: "center",
-    padding: 10,
+  mainContent: { 
+    flex: 1,
+    padding: 20,
+    paddingTop: 23,
   },
-
-  logo: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    justifyContent: "center",
+  dateText: { 
+    fontSize: 15, 
+    fontWeight: "medium",
+    marginTop: 2,
   },
-  mainContent: { marginTop: 100, padding: 20, backgroundColor: "#fff" },
-  dateText: { fontSize: 15, fontWeight: "medium", color: "#1F2940" },
-  colorContainer: { marginTop: 20 },
-  colorSection: { marginBottom: 20 },
-  colorHeader: { flexDirection: "row", alignItems: "center", marginBottom: 10 },
-
+  colorContainer: { 
+    marginTop: 5 
+  },
+  colorSection: { 
+    marginBottom: 20 
+  },
+  colorHeader: { 
+    flexDirection: "row", 
+    alignItems: "center", 
+    marginBottom: 10 
+  },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginLeft: 10,
-    color: "#1F2940",
   },
-
   colorBoxContainer: {
     marginBottom: 5,
-    backgroundColor: "#eee9f8",
     borderRadius: 10,
     padding: 10,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
-
   colorBox: {
     width: "100%",
     height: 60,
@@ -140,6 +144,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 8,
   },
-  colorText: { color: "white", fontWeight: "bold", paddingLeft: 10 },
-  description: { fontSize: 14, color: "#5B3E90" },
-});
+  colorText: { 
+    color: "white", 
+    fontWeight: "bold", 
+    paddingLeft: 10 
+  },
+  description: { 
+    fontSize: 14 
+  },
+}); 

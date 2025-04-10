@@ -1,18 +1,18 @@
-// screens/DetailColorScreen.js
 import React from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   ScrollView,
   StyleSheet,
   SafeAreaView,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../context/ThemeContext";
+import { useTranslation } from "react-i18next";
+import OtherHeader from "../components/OtherHeader";
 
 export default function DetailColorScreen() {
-  const navigation = useNavigation();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   const colorsOfTheDay = [
     {
@@ -43,18 +43,13 @@ export default function DetailColorScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headerBar}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.logo}>Detail Color</Text>
-      </View>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+      <OtherHeader 
+        title={t("colorDetails")} 
+        theme={theme} 
+      />
       <ScrollView
-        style={styles.mainContent}
+        style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.colorContainer}>
@@ -64,7 +59,7 @@ export default function DetailColorScreen() {
                 <Text style={styles.colorName}>{item.name}</Text>
               </View>
 
-              <Text style={styles.description}>{item.description}</Text>
+              <Text style={[styles.description, { color: theme.textColor }]}>{item.description}</Text>
             </View>
           ))}
         </View>
@@ -74,32 +69,21 @@ export default function DetailColorScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
-  headerBar: {
-    position: "absolute",
-    top: 0,
-    width: "100%",
-    height: 100,
-    backgroundColor: "#5B3E90",
-    justifyContent: "center",
-    alignItems: "center",
+  container: { 
+    flex: 1 
   },
-  backButton: {
-    position: "absolute",
-    left: 10,
-    justifyContent: "center",
-    padding: 10,
+  mainContent: { 
+    flex: 1,
+    padding: 20,
+    paddingTop: 23,
   },
-  logo: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
+  colorContainer: { 
+    marginTop: 5
   },
-  mainContent: { marginTop: 100, padding: 20, backgroundColor: "#fff" },
-  colorContainer: { marginTop: 20 },
-  colorSection: { marginBottom: 20, alignItems: "center" },
-
+  colorSection: { 
+    marginBottom: 20, 
+    alignItems: "center" 
+  },
   colorBox: {
     width: "90%",
     height: 60,
@@ -107,10 +91,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  colorName: { color: "white", fontWeight: "bold", fontSize: 14 },
+  colorName: { 
+    color: "white", 
+    fontWeight: "bold", 
+    fontSize: 14 
+  },
   description: {
     fontSize: 14,
-    color: "#5B3E90",
     textAlign: "center",
     marginTop: 5,
   },

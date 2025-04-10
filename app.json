@@ -23,6 +23,20 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "fonts": [
+      {
+        "asset": "./assets/fonts/Nunito-Regular.ttf",
+        "family": "Nunito"
+      },
+      {
+        "asset": "./assets/fonts/Nunito-Bold.ttf",
+        "family": "Nunito-Bold"
+      },
+      {
+        "asset": "./assets/fonts/Nunito-Light.ttf",
+        "family": "Nunito-Light"
+      }
+    ]
   }
 }
