@@ -217,7 +217,7 @@ export default function HomeScreen() {
               {/* หัวข้อสีมงคล */}
               <View style={styles.colorHeaderRow}>
                 <Text style={[styles.sectionTitle, { color: theme.textColor }]}>
-                  {t("dailyLuckyColor")}
+                  {t("TodayLuckyColor")}
                 </Text>
                 <View style={styles.colorIndicator}>
                   <Ionicons name="star" size={16} color="#FFD700" />
@@ -257,7 +257,7 @@ export default function HomeScreen() {
               {/* หัวข้อสีอัปมงคล */}
               <View style={styles.colorHeaderRow}>
                 <Text style={[styles.sectionTitle, { color: theme.textColor }]}>
-                  {t("Daily Unlucky Color")}
+                  {t("TodayUnluckyColor")}
                 </Text>
                 <View style={[styles.colorIndicator, styles.unluckyIndicator]}>
                   <Ionicons name="alert-circle" size={16} color="#FF6B6B" />

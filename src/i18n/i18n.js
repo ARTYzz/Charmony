@@ -29,6 +29,7 @@ const resources = {
       personalizedColors: "Personalized Colors",
       viewAll: "View All",
       
+      
       // Match color screen
       findYourMatch: "Find Your Match",
       selectColor: "Select Color",
@@ -75,9 +76,10 @@ const resources = {
       // Home screen
       welcome: "ยินดีต้อนรับ",
       discover: "ค้นพบสีของคุณ",
-      todayColor: "สีประจำวันนี้",
+      TodayLuckyColor: "สีมงคลประจำวันนี้",
       personalizedColors: "สีที่เหมาะกับคุณ",
       viewAll: "ดูทั้งหมด",
+      TodayUnluckyColor: "สีอัปมงคลประจำวัน",
       
       // Match color screen
       findYourMatch: "ค้นหาสีที่เข้ากัน",
@@ -89,6 +91,7 @@ const resources = {
       boostYourLuck: "เสริมดวงด้วยสี",
       dailyLuckyColor: "สีมงคลประจำวัน",
       weeklyForecast: "พยากรณ์รายสัปดาห์",
+      
       
       // Detail screen
       colorDetails: "รายละเอียดสี",
