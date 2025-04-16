@@ -1,0 +1,156 @@
+{
+  "Sunday": {
+    "career": {
+      "color": "#FF0000",
+      "name": "Red",
+      "description": "Red enhances confidence and credibility in the workplace."
+    },
+    "finance": {
+      "color": "#FFA500",
+      "name": "Orange",
+      "description": "Orange enhances luck and opportunities in life."
+    },
+    "luck": {
+      "color": "#808080",
+      "name": "Gray",
+      "description": "Gray enhances fortune and financial stability."
+    },
+    "love": {
+      "color": "#008000",
+      "name": "Green",
+      "description": "Green enhances charm and positive relationships."
+    }
+  },
+  "Monday": {
+    "career": {
+      "color": "#FFFF00",
+      "name": "Yellow",
+      "description": "Yellow brings brightness and optimism to your work."
+    },
+    "finance": {
+      "color": "#FFFFFF",
+      "name": "White",
+      "description": "White symbolizes clarity and clean financial opportunities."
+    },
+    "luck": {
+      "color": "#000080",
+      "name": "Navy Blue",
+      "description": "Navy Blue attracts trust and steady fortune."
+    },
+    "love": {
+      "color": "#800080",
+      "name": "Purple",
+      "description": "Purple enhances romance and deep emotional connection."
+    }
+  },
+  "Tuesday": {
+    "career": {
+      "color": "#000000",
+      "name": "Black",
+      "description": "Black gives you power and determination at work."
+    },
+    "finance": {
+      "color": "#FFD700",
+      "name": "Gold",
+      "description": "Gold brings abundance and wealth."
+    },
+    "luck": {
+      "color": "#FFA500",
+      "name": "Orange",
+      "description": "Orange boosts your fortune and daily energy."
+    },
+    "love": {
+      "color": "#FFC0CB",
+      "name": "Pink",
+      "description": "Pink brings tenderness and love into your life."
+    }
+  },
+  "Wednesday": {
+    "career": {
+      "color": "#008000",
+      "name": "Green",
+      "description": "Green promotes balance and progress in work."
+    },
+    "finance": {
+      "color": "#808080",
+      "name": "Gray",
+      "description": "Gray supports stable and grounded finances."
+    },
+    "luck": {
+      "color": "#800080",
+      "name": "Purple",
+      "description": "Purple brings mystery and unexpected luck."
+    },
+    "love": {
+      "color": "#FFD700",
+      "name": "Gold",
+      "description": "Gold enhances deep emotional value in relationships."
+    }
+  },
+  "Thursday": {
+    "career": {
+      "color": "#ADD8E6",
+      "name": "Light Blue",
+      "description": "Light Blue supports communication and calm at work."
+    },
+    "finance": {
+      "color": "#FF1493",
+      "name": "Pink",
+      "description": "Pink attracts loving and generous financial support."
+    },
+    "luck": {
+      "color": "#FFFDD0",
+      "name": "Cream",
+      "description": "Cream brings smooth and pleasant fortune."
+    },
+    "love": {
+      "color": "#FFA500",
+      "name": "Orange",
+      "description": "Orange sparks joyful relationships."
+    }
+  },
+  "Friday": {
+    "career": {
+      "color": "#FFC0CB",
+      "name": "Pink",
+      "description": "Pink supports graceful communication at work."
+    },
+    "finance": {
+      "color": "#0000FF",
+      "name": "Blue",
+      "description": "Blue invites clarity and trust in financial matters."
+    },
+    "luck": {
+      "color": "#808080",
+      "name": "Gray",
+      "description": "Gray helps you make wise, grounded decisions."
+    },
+    "love": {
+      "color": "#FFFF00",
+      "name": "Yellow",
+      "description": "Yellow fills your heart with joy and attraction."
+    }
+  },
+  "Saturday": {
+    "career": {
+      "color": "#000000",
+      "name": "Black",
+      "description": "Black helps you stay strong and focused."
+    },
+    "finance": {
+      "color": "#800080",
+      "name": "Purple",
+      "description": "Purple empowers your financial intuition."
+    },
+    "luck": {
+      "color": "#ADD8E6",
+      "name": "Light Blue",
+      "description": "Light Blue supports peaceful and smooth fortune."
+    },
+    "love": {
+      "color": "#FF0000",
+      "name": "Red",
+      "description": "Red brings strong passion and attraction."
+    }
+  }
+}
