@@ -1,156 +1,121 @@
 {
   "Sunday": {
-    "career": {
-      "color": "#FF0000",
-      "name": "Red",
-      "description": "Red enhances confidence and credibility in the workplace."
-    },
-    "finance": {
-      "color": "#FFA500",
-      "name": "Orange",
-      "description": "Orange enhances luck and opportunities in life."
-    },
-    "luck": {
-      "color": "#808080",
-      "name": "Gray",
-      "description": "Gray enhances fortune and financial stability."
-    },
-    "love": {
-      "color": "#008000",
-      "name": "Green",
-      "description": "Green enhances charm and positive relationships."
-    }
+    "career": [
+      { "name": "Red", "color": "#FF0000" },
+      { "name": "Black", "color": "#000000" }
+    ],
+    "finance": [
+      { "name": "Orange", "color": "#FFA500" },
+      { "name": "Purple", "color": "#800080" },
+      { "name": "Cream", "color": "#FFFDD0" }
+    ],
+    "love": [
+      { "name": "Gray", "color": "#808080" },
+      { "name": "Light Green", "color": "#90EE90" }
+    ],
+    "luck": [{ "name": "Green", "color": "#008000" }],
+    "unlucky": ["Light Blue", "Blue"]
   },
   "Monday": {
-    "career": {
-      "color": "#FFFF00",
-      "name": "Yellow",
-      "description": "Yellow brings brightness and optimism to your work."
-    },
-    "finance": {
-      "color": "#FFFFFF",
-      "name": "White",
-      "description": "White symbolizes clarity and clean financial opportunities."
-    },
-    "luck": {
-      "color": "#000080",
-      "name": "Navy Blue",
-      "description": "Navy Blue attracts trust and steady fortune."
-    },
-    "love": {
-      "color": "#800080",
-      "name": "Purple",
-      "description": "Purple enhances romance and deep emotional connection."
-    }
+    "career": [
+      { "name": "Yellow", "color": "#FFFF00" },
+      { "name": "Cream", "color": "#FFFDD0" }
+    ],
+    "finance": [
+      { "name": "White", "color": "#FFFFFF" },
+      { "name": "Light Blue", "color": "#ADD8E6" },
+      { "name": "Blue", "color": "#0000FF" }
+    ],
+    "love": [{ "name": "Purple", "color": "#800080" }],
+    "luck": [
+      { "name": "Green", "color": "#008000" },
+      { "name": "Navy Blue", "color": "#000080" }
+    ],
+    "unlucky": ["Orange", "Red"]
   },
   "Tuesday": {
-    "career": {
-      "color": "#000000",
-      "name": "Black",
-      "description": "Black gives you power and determination at work."
-    },
-    "finance": {
-      "color": "#FFD700",
-      "name": "Gold",
-      "description": "Gold brings abundance and wealth."
-    },
-    "luck": {
-      "color": "#FFA500",
-      "name": "Orange",
-      "description": "Orange boosts your fortune and daily energy."
-    },
-    "love": {
-      "color": "#FFC0CB",
-      "name": "Pink",
-      "description": "Pink brings tenderness and love into your life."
-    }
+    "career": [
+      { "name": "Black", "color": "#000000" },
+      { "name": "Red", "color": "#FF0000" },
+      { "name": "Purple", "color": "#800080" }
+    ],
+    "finance": [
+      { "name": "Yellow", "color": "#FFFF00" },
+      { "name": "Gold", "color": "#FFD700" }
+    ],
+    "love": [
+      { "name": "Red", "color": "#FF0000" },
+      { "name": "Pink", "color": "#FFC0CB" }
+    ],
+    "luck": [{ "name": "Orange", "color": "#FFA500" }],
+    "unlucky": ["White"]
   },
   "Wednesday": {
-    "career": {
-      "color": "#008000",
-      "name": "Green",
-      "description": "Green promotes balance and progress in work."
-    },
-    "finance": {
-      "color": "#808080",
-      "name": "Gray",
-      "description": "Gray supports stable and grounded finances."
-    },
-    "luck": {
-      "color": "#800080",
-      "name": "Purple",
-      "description": "Purple brings mystery and unexpected luck."
-    },
-    "love": {
-      "color": "#FFD700",
-      "name": "Gold",
-      "description": "Gold enhances deep emotional value in relationships."
-    }
+    "career": [
+      { "name": "Green", "color": "#008000" },
+      { "name": "Yellow", "color": "#FFFF00" },
+      { "name": "Brown", "color": "#A52A2A" }
+    ],
+    "finance": [
+      { "name": "Gray", "color": "#808080" },
+      { "name": "Black", "color": "#000000" }
+    ],
+    "love": [
+      { "name": "Gold", "color": "#FFD700" },
+      { "name": "Cream", "color": "#FFFDD0" }
+    ],
+    "luck": [{ "name": "Purple", "color": "#800080" }],
+    "unlucky": ["Pink", "Red"]
   },
   "Thursday": {
-    "career": {
-      "color": "#ADD8E6",
-      "name": "Light Blue",
-      "description": "Light Blue supports communication and calm at work."
-    },
-    "finance": {
-      "color": "#FF1493",
-      "name": "Pink",
-      "description": "Pink attracts loving and generous financial support."
-    },
-    "luck": {
-      "color": "#FFFDD0",
-      "name": "Cream",
-      "description": "Cream brings smooth and pleasant fortune."
-    },
-    "love": {
-      "color": "#FFA500",
-      "name": "Orange",
-      "description": "Orange sparks joyful relationships."
-    }
+    "career": [
+      { "name": "Light Blue", "color": "#ADD8E6" },
+      { "name": "Blue", "color": "#0000FF" },
+      { "name": "Green", "color": "#008000" }
+    ],
+    "finance": [
+      { "name": "Red", "color": "#FF0000" },
+      { "name": "Pink", "color": "#FFC0CB" }
+    ],
+    "love": [
+      { "name": "Orange", "color": "#FFA500" },
+      { "name": "Yellow", "color": "#FFFF00" }
+    ],
+    "luck": [{ "name": "Cream", "color": "#FFFDD0" }],
+    "unlucky": ["Purple", "Black"]
   },
   "Friday": {
-    "career": {
-      "color": "#FFC0CB",
-      "name": "Pink",
-      "description": "Pink supports graceful communication at work."
-    },
-    "finance": {
-      "color": "#0000FF",
-      "name": "Blue",
-      "description": "Blue invites clarity and trust in financial matters."
-    },
-    "luck": {
-      "color": "#808080",
-      "name": "Gray",
-      "description": "Gray helps you make wise, grounded decisions."
-    },
-    "love": {
-      "color": "#FFFF00",
-      "name": "Yellow",
-      "description": "Yellow fills your heart with joy and attraction."
-    }
+    "career": [{ "name": "Pink", "color": "#FFC0CB" }],
+    "finance": [
+      { "name": "Cream", "color": "#FFFDD0" },
+      { "name": "Blue", "color": "#0000FF" },
+      { "name": "White", "color": "#FFFFFF" }
+    ],
+    "love": [
+      { "name": "Pink", "color": "#FFC0CB" },
+      { "name": "Yellow", "color": "#FFFF00" }
+    ],
+    "luck": [
+      { "name": "Orange", "color": "#FFA500" },
+      { "name": "Gray", "color": "#808080" }
+    ],
+    "unlucky": ["Brown"]
   },
   "Saturday": {
-    "career": {
-      "color": "#000000",
-      "name": "Black",
-      "description": "Black helps you stay strong and focused."
-    },
-    "finance": {
-      "color": "#800080",
-      "name": "Purple",
-      "description": "Purple empowers your financial intuition."
-    },
-    "luck": {
-      "color": "#ADD8E6",
-      "name": "Light Blue",
-      "description": "Light Blue supports peaceful and smooth fortune."
-    },
-    "love": {
-      "color": "#FF0000",
-      "name": "Red",
-      "description": "Red brings strong passion and attraction."
-    }
+    "career": [
+      { "name": "Black", "color": "#000000" },
+      { "name": "Light Blue", "color": "#ADD8E6" },
+      { "name": "White", "color": "#FFFFFF" }
+    ],
+    "finance": [
+      { "name": "Blue", "color": "#0000FF" },
+      { "name": "Purple", "color": "#800080" }
+    ],
+    "love": [
+      { "name": "Red", "color": "#FF0000" },
+      { "name": "Pink", "color": "#FFC0CB" }
+    ],
+    "luck": [{ "name": "Light Blue", "color": "#ADD8E6" }],
+    "unlucky": ["Green"]
   }
 }

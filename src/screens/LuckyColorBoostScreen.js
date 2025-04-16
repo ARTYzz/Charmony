@@ -46,7 +46,7 @@ export default function LuckyColorBoostScreen() {
         </Text>
         <View style={styles.colorContainer}>
           {sections.map((section, index) => {
-            const item = todayData[section.key];
+            const item = todayData[section.key]; // now it's an array
             return (
               <View key={index} style={styles.colorSection}>
                 <View style={styles.colorHeader}>
@@ -67,15 +67,18 @@ export default function LuckyColorBoostScreen() {
                     { backgroundColor: theme.secondaryColor },
                   ]}
                 >
-                  <View
-                    style={[styles.colorBox, { backgroundColor: item.color }]}
-                  >
-                    <Text style={styles.colorText}>{item.name}</Text>
-                  </View>
+                  {item.map((colorItem, idx) => (
+                    <View
+                      key={idx}
+                      style={[
+                        styles.colorBox,
+                        { backgroundColor: colorItem.color },
+                      ]}
+                    >
+                      <Text style={styles.colorText}>{colorItem.name}</Text>
+                    </View>
+                  ))}
                 </View>
-                <Text style={[styles.description, { color: theme.textColor }]}>
-                  {item.description}
-                </Text>
               </View>
             );
           })}
