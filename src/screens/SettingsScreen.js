@@ -72,7 +72,10 @@ export default function SettingsScreen() {
             <Ionicons name="language-outline" size={24} color={theme.textColor} />
             <Text style={[styles.settingText, { color: theme.textColor }]}>{t("language")}</Text>
             <View style={styles.settingRight}>
-              <Text style={[styles.settingValue, { color: theme.textColor }]}>{t(language)}</Text>
+              <Text style={[styles.settingValue, { color: theme.textColor }]}>
+                {language === "th" ? t("thai") : t("english")}
+              </Text>
+
               <Ionicons
                 name="chevron-forward-outline"
                 size={24}
