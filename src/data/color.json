@@ -1,30 +1,30 @@
 {
   "Sunday": {
-    "lucky": ["Red", "Orange", "Gray", "Green"],
+    "lucky": ["Red", "Black", "Orange"],
     "unlucky": ["Light Blue", "Blue"]
   },
   "Monday": {
-    "lucky": ["Yellow", "White", "Purple", "Green"],
+    "lucky": ["Yellow", "White", "Light Blue"],
     "unlucky": ["Orange", "Red"]
   },
   "Tuesday": {
-    "lucky": ["Black", "Yellow", "Red", "Orange"],
+    "lucky": ["Red", "Black", "Yellow"],
     "unlucky": ["White"]
   },
   "Wednesday": {
-    "lucky": ["Green", "Gray", "Gold", "Purple"],
+    "lucky": ["Green", "Yellow", "Gold"],
     "unlucky": ["Pink", "Red"]
   },
   "Thursday": {
-    "lucky": ["Light Blue", "Red", "Orange", "Cream"],
+    "lucky": ["Light Blue", "Green", "Orange"],
     "unlucky": ["Purple", "Black"]
   },
   "Friday": {
-    "lucky": ["Pink", "Cream", "Peach", "Orange"],
+    "lucky": ["Pink", "Cream", "Blue"],
     "unlucky": ["Brown"]
   },
   "Saturday": {
-    "lucky": ["Black", "Navy Blue", "Red", "Light Blue"],
+    "lucky": ["Black", "Light Blue", "Red"],
     "unlucky": ["Green"]
   }
-} 
+}
