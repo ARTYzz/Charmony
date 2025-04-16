@@ -33,19 +33,20 @@ export default function LuckyColorBoostScreen() {
   const { theme } = useTheme();
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
+    >
       {/* Header */}
-      <OtherHeader 
-        title={t("boostYourLuck")} 
-        theme={theme} 
-      />
+      <OtherHeader title={t("boostYourLuck")} theme={theme} />
 
       {/* Main Content */}
       <ScrollView
         style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[styles.dateText, { color: theme.textColor }]}>Sunday, 9 March 2025</Text>
+        <Text style={[styles.dateText, { color: theme.textColor }]}>
+          Sunday, 9 March 2025
+        </Text>
         <View style={styles.colorContainer}>
           {[
             {
@@ -81,16 +82,25 @@ export default function LuckyColorBoostScreen() {
             <View key={index} style={styles.colorSection}>
               <View style={styles.colorHeader}>
                 <Ionicons name={item.icon} size={24} color={theme.textColor} />
-                <Text style={[styles.sectionTitle, { color: theme.textColor }]}>{item.title}</Text>
+                <Text style={[styles.sectionTitle, { color: theme.textColor }]}>
+                  {item.title}
+                </Text>
               </View>
-              <View style={[styles.colorBoxContainer, { backgroundColor: theme.secondaryColor }]}>
+              <View
+                style={[
+                  styles.colorBoxContainer,
+                  { backgroundColor: theme.secondaryColor },
+                ]}
+              >
                 <View
                   style={[styles.colorBox, { backgroundColor: item.color }]}
                 >
                   <Text style={styles.colorText}>{item.name}</Text>
                 </View>
               </View>
-              <Text style={[styles.description, { color: theme.textColor }]}>{item.description}</Text>
+              <Text style={[styles.description, { color: theme.textColor }]}>
+                {item.description}
+              </Text>
             </View>
           ))}
         </View>
@@ -100,29 +110,29 @@ export default function LuckyColorBoostScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1 
+  container: {
+    flex: 1,
   },
-  mainContent: { 
+  mainContent: {
     flex: 1,
     padding: 20,
     paddingTop: 23,
   },
-  dateText: { 
-    fontSize: 15, 
+  dateText: {
+    fontSize: 15,
     fontWeight: "medium",
     marginTop: 2,
   },
-  colorContainer: { 
-    marginTop: 5 
+  colorContainer: {
+    marginTop: 5,
   },
-  colorSection: { 
-    marginBottom: 20 
+  colorSection: {
+    marginBottom: 20,
   },
-  colorHeader: { 
-    flexDirection: "row", 
-    alignItems: "center", 
-    marginBottom: 10 
+  colorHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
   },
   sectionTitle: {
     fontSize: 18,
@@ -144,12 +154,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 8,
   },
-  colorText: { 
-    color: "white", 
-    fontWeight: "bold", 
-    paddingLeft: 10 
+  colorText: {
+    color: "white",
+    fontWeight: "bold",
+    paddingLeft: 10,
   },
-  description: { 
-    fontSize: 14 
+  description: {
+    fontSize: 14,
   },
-}); 
+});

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Red",
+    "color": "#FF0000",
+    "description": "Represents power, passion, love, courage, and confidence. In some cultures like China, red symbolizes luck and celebration."
+  },
+  {
+    "name": "Pink",
+    "color": "#FFC0CB",
+    "description": "Symbolizes gentleness, romance, and innocence. It often evokes feelings of nurturing and comfort."
+  },
+  {
+    "name": "White",
+    "color": "#FFFFFF",
+    "description": "Stands for purity, cleanliness, simplicity, and new beginnings."
+  },
+  {
+    "name": "Gray",
+    "color": "#808080",
+    "description": "Represents neutrality, calmness, stability, and sophistication."
+  },
+  {
+    "name": "Black",
+    "color": "#000000",
+    "description": "Represents mystery, authority, elegance, and sometimes grief."
+  },
+  {
+    "name": "Green",
+    "color": "#008000",
+    "description": "Symbolizes nature, freshness, balance, and growth."
+  },
+  {
+    "name": "Light Green",
+    "color": "#90EE90",
+    "description": "Associated with softness, youthfulness, and new beginnings."
+  },
+  {
+    "name": "Gold",
+    "color": "#FFD700",
+    "description": "Represents wealth, luxury, and prestige."
+  },
+  {
+    "name": "Orange",
+    "color": "#FFA500",
+    "description": "Symbolizes fun, enthusiasm, creativity, and energy."
+  },
+  {
+    "name": "Yellow",
+    "color": "#FFFF00",
+    "description": "Associated with happiness, brightness, positivity, and intellect."
+  },
+  {
+    "name": "Cream",
+    "color": "#FFFDD0",
+    "description": "Represents warmth, calmness, and simplicity."
+  },
+  {
+    "name": "Brown",
+    "color": "#A52A2A",
+    "description": "Symbolizes stability, nature, and reliability."
+  },
+  {
+    "name": "Blue",
+    "color": "#0000FF",
+    "description": "Represents calmness, confidence, intelligence, and trust."
+  },
+  {
+    "name": "Light Blue",
+    "color": "#ADD8E6",
+    "description": "Symbolizes lightness, relaxation, and openness."
+  },
+  {
+    "name": "Navy Blue",
+    "color": "#000080",
+    "description": "Associated with depth, authority, and reliability."
+  },
+  {
+    "name": "Purple",
+    "color": "#800080",
+    "description": "Symbolizes mystery, creativity, luxury, and spirituality."
+  }
+]
