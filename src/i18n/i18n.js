@@ -80,12 +80,8 @@ const resources = {
       match: "Match",
       results: "Results",
 
-      look: {
-        confident: "Look 1: Confident",
-        health: "Look 2: Health",
-        creative: "Look 3: Creative",
-        charm: "Look 4: Charm"
-      },
+      lookNumber: "Look {{number}}",
+
 
       // Lucky color screen
       boostYourLuck: "Boost Your Luck",
@@ -190,12 +186,8 @@ const resources = {
       match: "จับคู่",
       results: "ผลลัพธ์",
 
-      look: {
-        confident: "ลุคที่ 1: มั่นใจ",
-        health: "ลุคที่ 2: สุขภาพ",
-        creative: "ลุคที่ 3: สร้างสรรค์",
-        charm: "ลุคที่ 4: เสน่ห์"
-      },
+      lookNumber: "ลุคที่ {{number}}",
+
       
 
       // Lucky color screen

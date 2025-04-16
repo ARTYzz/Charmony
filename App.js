@@ -53,7 +53,6 @@ export default function App() {
     <LanguageProvider>
       <ThemeProvider>
         <SelectedDayProvider>
-          {" "}
           {/* ✅ must wrap your app here */}
           <NavigationContainer>
             <MainNavigator />

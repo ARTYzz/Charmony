@@ -39,7 +39,7 @@ export default function MatchColorScreen() {
           {looks.map((look, index) => (
             <View key={index} style={styles.colorSection}>
               <Text style={[styles.sectionTitle, { color: theme.textColor }]}>
-                {t(`look.${look.key}`)}
+                {t("lookNumber", { number: index + 1 })}
               </Text>
               <View
                 style={[
