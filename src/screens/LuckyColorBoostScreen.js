@@ -21,11 +21,12 @@ export default function LuckyColorBoostScreen() {
   const todayData = luckyColorData[fullDayName];
 
   const sections = [
-    { key: "career", title: "Career", icon: "briefcase" },
-    { key: "finance", title: "Finance & Wealth", icon: "cash" },
-    { key: "luck", title: "Luck & Fortune", icon: "star" },
-    { key: "love", title: "Charm & Relationships", icon: "heart" },
+    { key: "career", title: t("luckySections.career"), icon: "briefcase" },
+    { key: "finance", title: t("luckySections.finance"), icon: "cash" },
+    { key: "luck", title: t("luckySections.luck"), icon: "star" },
+    { key: "love", title: t("luckySections.love"), icon: "heart" },
   ];
+  
 
   return (
     <SafeAreaView
@@ -75,7 +76,9 @@ export default function LuckyColorBoostScreen() {
                         { backgroundColor: colorItem.color },
                       ]}
                     >
-                      <Text style={styles.colorText}>{colorItem.name}</Text>
+                      <Text style={styles.colorText}>
+                        {t(`colors.${colorItem.name}`, colorItem.name)}
+                      </Text>
                     </View>
                   ))}
                 </View>

@@ -91,6 +91,13 @@ const resources = {
       boostYourLuck: "Boost Your Luck",
       dailyLuckyColor: "Daily Lucky Color",
       weeklyForecast: "Weekly Forecast",
+      luckySections: {
+        career: "Career",
+        finance: "Finance & Wealth",
+        luck: "Luck & Fortune",
+        love: "Charm & Relationships"
+      },
+      
 
       // Detail screen
       colorDetails: "Color Details",
@@ -195,6 +202,13 @@ const resources = {
       boostYourLuck: "เสริมดวงด้วยสี",
       dailyLuckyColor: "สีมงคลประจำวัน",
       weeklyForecast: "พยากรณ์รายสัปดาห์",
+      luckySections: {
+        career: "การงาน",
+        finance: "การเงินและความมั่งคั่ง",
+        luck: "โชคลาภ",
+        love: "เสน่ห์และความรัก"
+      },
+      
 
       // Detail screen
       colorDetails: "รายละเอียดสี",
