@@ -11,7 +11,7 @@ export default function MatchColorScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { theme } = useTheme();
-  const { selectedDay } = useSelectedDay(); // ✅ get day from context
+  const { selectedDay } = useSelectedDay();
 
   const todayLooks = matchColors[selectedDay] || {};
 
@@ -21,6 +21,16 @@ export default function MatchColorScreen() {
     { ...todayLooks.Creative, key: "creative" },
     { ...todayLooks.Charm, key: "charm" },
   ];
+
+  const getTextColor = (bgColor) => {
+    if (!bgColor) return "black";
+    const hex = bgColor.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness > 128 ? "black" : "white";
+  };
 
   return (
     <SafeAreaView
@@ -33,7 +43,7 @@ export default function MatchColorScreen() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={[styles.dateText, { color: theme.textColor }]}>
-          {selectedDay}
+          {t(`days.${selectedDay}`, selectedDay)}
         </Text>
         <View style={styles.colorContainer}>
           {looks.map((look, index) => (
@@ -52,7 +62,9 @@ export default function MatchColorScreen() {
                     key={idx}
                     style={[styles.colorBox, { backgroundColor: color }]}
                   >
-                    <Text style={styles.colorName}>
+                    <Text
+                      style={[styles.colorName, { color: getTextColor(color) }]}
+                    >
                       {t(`colors.${look.names[idx]}`, look.names[idx])}
                     </Text>
                   </View>
@@ -90,7 +102,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   colorName: {
-    color: "white",
     fontWeight: "bold",
   },
   description: {

@@ -22,7 +22,7 @@ export default function LuckyColorBoostScreen() {
     { key: "luck", title: t("luckySections.luck"), icon: "star" },
     { key: "love", title: t("luckySections.love"), icon: "heart" },
   ];
-  
+
   const getTextColor = (bgColor) => {
     if (!bgColor) return "black";
     const hex = bgColor.replace("#", "");
@@ -44,7 +44,7 @@ export default function LuckyColorBoostScreen() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={[styles.dateText, { color: theme.textColor }]}>
-          {selectedDay}
+          {t(`days.${selectedDay}`, selectedDay)}
         </Text>
         <View style={styles.colorContainer}>
           {sections.map((section, index) => {
@@ -79,9 +79,10 @@ export default function LuckyColorBoostScreen() {
                     >
                       <Text
                         style={[
-                        styles.colorText,
-                        { color: getTextColor(colorItem.color) }
-                        ]}  >
+                          styles.colorText,
+                          { color: getTextColor(colorItem.color) },
+                        ]}
+                      >
                         {t(`colors.${colorItem.name}`, colorItem.name)}
                       </Text>
                     </View>

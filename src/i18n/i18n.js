@@ -6,6 +6,16 @@ const resources = {
   en: {
     translation: {
       // Inside both `en.translation` and `th.translation`
+      days: {
+        Sunday: "Sunday",
+        Monday: "Monday",
+        Tuesday: "Tuesday",
+        Wednesday: "Wednesday",
+        Thursday: "Thursday",
+        Friday: "Friday",
+        Saturday: "Saturday",
+      },
+
       colors: {
         Red: "Red",
         Blue: "Blue",
@@ -21,7 +31,7 @@ const resources = {
         Cream: "Cream",
         Brown: "Brown",
         "Light Blue": "Light Blue",
-        "Navy Blue":"Navy Blue",
+        "Navy Blue": "Navy Blue",
         "Light Green": "Light Green",
       },
       colorDescriptions: {
@@ -71,8 +81,11 @@ const resources = {
       DailyColorForecast: "Daily Color Forecast",
       viewAll: "View All",
       TodayLuckyColor: "Today Lucky Color",
-      TodayUnluckyColor:"Today Unlucky Color",
-      SeeMore:"See More",
+      TodayUnluckyColor: "Today Unlucky Color",
+      SeeMore: "See More",
+      SelectedDay: "Select Day",
+      avoid: "Avoid",
+      lucky: "Lucky",
 
       // Match color screen
       findYourMatch: "Find Your Match",
@@ -82,7 +95,6 @@ const resources = {
 
       lookNumber: "Look {{number}}",
 
-
       // Lucky color screen
       boostYourLuck: "Boost Your Luck",
       dailyLuckyColor: "Daily Lucky Color",
@@ -91,9 +103,8 @@ const resources = {
         career: "Career",
         finance: "Finance & Wealth",
         luck: "Luck & Fortune",
-        love: "Charm & Relationships"
+        love: "Charm & Relationships",
       },
-      
 
       // Detail screen
       colorDetails: "Color Details",
@@ -111,6 +122,16 @@ const resources = {
   th: {
     translation: {
       // Thai
+      days: {
+        Sunday: "วันอาทิตย์",
+        Monday: "วันจันทร์",
+        Tuesday: "วันอังคาร",
+        Wednesday: "วันพุธ",
+        Thursday: "วันพฤหัสบดี",
+        Friday: "วันศุกร์",
+        Saturday: "วันเสาร์",
+      },
+
       colors: {
         Red: "สีแดง",
         Blue: "สีน้ำเงิน",
@@ -126,7 +147,7 @@ const resources = {
         Cream: "สีครีม",
         Brown: "สีน้ำตาล",
         "Light Blue": "สีฟ้า",
-        "Navy Blue":"สีน้ำเงินเข้ม",
+        "Navy Blue": "สีน้ำเงินเข้ม",
         "Light Green": "สีเขียวอ่อน",
       },
       colorDescriptions: {
@@ -178,7 +199,10 @@ const resources = {
       viewAll: "ดูทั้งหมด",
       TodayLuckyColor: "สีมงคลประจำวัน",
       TodayUnluckyColor: "สีอัปมงคลประจำวัน",
-      SeeMore:"ดูเพิ่มเติม",
+      SeeMore: "ดูเพิ่มเติม",
+      SelectedDay: "วันที่เลือก",
+      avoid: "หลีกเลี่ยง",
+      lucky: "โชคดี",
 
       // Match color screen
       findYourMatch: "ค้นหาสีที่เข้ากัน",
@@ -188,8 +212,6 @@ const resources = {
 
       lookNumber: "ลุคที่ {{number}}",
 
-      
-
       // Lucky color screen
       boostYourLuck: "เสริมดวงด้วยสี",
       dailyLuckyColor: "สีมงคลประจำวัน",
@@ -198,9 +220,8 @@ const resources = {
         career: "การงาน",
         finance: "การเงินและความมั่งคั่ง",
         luck: "โชคลาภ",
-        love: "เสน่ห์และความรัก"
+        love: "เสน่ห์และความรัก",
       },
-      
 
       // Detail screen
       colorDetails: "รายละเอียดสี",

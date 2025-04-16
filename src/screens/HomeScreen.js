@@ -211,7 +211,9 @@ export default function HomeScreen() {
           />
           <Text style={[styles.selectedDayTitle, { color: theme.textColor }]}>
             {t("SelectedDay")} :{" "}
-            <Text style={styles.dayNameText}>{selectedDay}</Text>
+            <Text style={styles.dayNameText}>
+              {t(`days.${selectedDay}`, selectedDay)}
+            </Text>
           </Text>
         </View>
 
@@ -327,7 +329,7 @@ export default function HomeScreen() {
                   <Text
                     style={[styles.seeMoreText, { color: theme.primaryColor }]}
                   >
-                    {t("See More")}
+                    {t("SeeMore")}
                   </Text>
                   <Ionicons
                     name="chevron-forward"
