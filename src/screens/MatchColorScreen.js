@@ -1,83 +1,71 @@
 // screens/MatchColorScreen.js
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-  SafeAreaView,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import OtherHeader from "../components/OtherHeader";
+import matchColors from "../data/matchColors.json";
 
-// Function to map abbreviated day names to full names
-function getFullDayName(shortDay) {
-  const mapping = {
-    Sun: "Sunday",
-    Mon: "Monday",
-    Tue: "Tuesday",
-    Wed: "Wednesday",
-    Thu: "Thursday",
-    Fri: "Friday",
-    Sat: "Saturday",
-  };
-  return mapping[shortDay] || shortDay;
-}
+const fullDayName = new Date().toLocaleDateString("en-US", { weekday: "long" });
+const todayLooks = matchColors[fullDayName];
 
 export default function MatchColorScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-
   const looks = [
     {
       title: "Look 1: Confident",
-      colors: ["#FF0000", "#FFA500", "#2de32d"],
-      names: ["Red", "Orange", "Green"],
-      descriptions: ["Help enhance confidence and positive energy."],
+      ...todayLooks.Confident,
     },
     {
       title: "Look 2: Health",
-      colors: ["#33FF57", "#28A745", "#85C1E9"],
-      names: ["Light Green", "Deep Green", "Sky Blue"],
-      descriptions: ["Help enhance health and peace of mind."],
+      ...todayLooks.Health,
     },
     {
       title: "Look 3: Creative",
-      colors: ["#3357FF", "#ac2bf9", "#d48cff"],
-      names: ["Blue", "Deep Purple", "Light Purple"],
-      descriptions: ["Help enhance creativity and inspiration."],
+      ...todayLooks.Creative,
     },
     {
       title: "Look 4: Charm",
-      colors: ["#f92b70", "#aa2a54", "#ff92b6"],
-      names: ["Pink", "Deep Pink", "Light Pink"],
-      descriptions: ["Help enhance love and personal charm."],
+      ...todayLooks.Charm,
     },
   ];
 
+  const formattedDate = new Date().toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-      <OtherHeader 
-        title={t("matchColor")} 
-        theme={theme} 
-      />
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
+    >
+      <OtherHeader title={t("matchColor")} theme={theme} />
 
       <ScrollView
         style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[styles.dateText, { color: theme.textColor }]}>Sunday, 9 March 2025</Text>
+        <Text style={[styles.dateText, { color: theme.textColor }]}>
+          {formattedDate}
+        </Text>
         <View style={styles.colorContainer}>
           {looks.map((look, index) => (
             <View key={index} style={styles.colorSection}>
-              <Text style={[styles.sectionTitle, { color: theme.textColor }]}>{look.title}</Text>
-              <View style={[styles.colorBoxContainer, { backgroundColor: theme.secondaryColor }]}>
+              <Text style={[styles.sectionTitle, { color: theme.textColor }]}>
+                {look.title}
+              </Text>
+              <View
+                style={[
+                  styles.colorBoxContainer,
+                  { backgroundColor: theme.secondaryColor },
+                ]}
+              >
                 {look.colors.map((color, idx) => (
                   <View
                     key={idx}
@@ -87,11 +75,9 @@ export default function MatchColorScreen() {
                   </View>
                 ))}
               </View>
-              {look.descriptions.map((desc, idx) => (
-                <Text key={idx} style={[styles.description, { color: theme.textColor }]}>
-                  {desc}
-                </Text>
-              ))}
+              <Text style={[styles.description, { color: theme.textColor }]}>
+                {look.description}
+              </Text>
             </View>
           ))}
         </View>
@@ -101,25 +87,11 @@ export default function MatchColorScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1 
-  },
-  mainContent: { 
-    flex: 1,
-    padding: 20,
-    paddingTop: 23,
-  },
-  dateText: { 
-    fontSize: 16, 
-    fontWeight: "medium",
-    marginTop: 2,
-  },
-  colorContainer: { 
-    marginTop: 5
-  },
-  colorSection: { 
-    marginBottom: 20 
-  },
+  container: { flex: 1 },
+  mainContent: { flex: 1, padding: 20, paddingTop: 23 },
+  dateText: { fontSize: 16, fontWeight: "medium", marginTop: 2 },
+  colorContainer: { marginTop: 5 },
+  colorSection: { marginBottom: 20 },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
@@ -141,13 +113,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  colorName: { 
-    color: "white", 
-    fontWeight: "bold" 
+  colorName: {
+    color: "white",
+    fontWeight: "bold",
   },
   description: {
     fontSize: 14,
     textAlign: "left",
     marginTop: 5,
   },
-}); 
+});

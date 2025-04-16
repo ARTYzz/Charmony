@@ -1,0 +1,156 @@
+{
+  "Sunday": {
+    "Confident": {
+      "colors": ["#FF0000", "#FFA500", "#000000"],
+      "names": ["Red", "Orange", "Black"],
+      "description": "Help enhance confidence and positive energy."
+    },
+    "Health": {
+      "colors": ["#33FF57", "#FFA500", "#FFFFFF"],
+      "names": ["Light Green", "Orange", "White"],
+      "description": "Help enhance health and peace of mind."
+    },
+    "Creative": {
+      "colors": ["#FFA500", "#FF69B4", "#FFFF00"],
+      "names": ["Orange", "Hot Pink", "Yellow"],
+      "description": "Help enhance creativity and inspiration."
+    },
+    "Charm": {
+      "colors": ["#FF69B4", "#FFB6C1", "#FF0000"],
+      "names": ["Hot Pink", "Light Pink", "Red"],
+      "description": "Help enhance love and personal charm."
+    }
+  },
+  "Monday": {
+    "Confident": {
+      "colors": ["#FFFF00", "#FFFFFF", "#ADD8E6"],
+      "names": ["Yellow", "White", "Light Blue"],
+      "description": "Help enhance confidence and positive energy."
+    },
+    "Health": {
+      "colors": ["#90EE90", "#ADD8E6", "#FFFF00"],
+      "names": ["Light Green", "Light Blue", "Yellow"],
+      "description": "Help enhance health and peace of mind."
+    },
+    "Creative": {
+      "colors": ["#FFA500", "#FF69B4", "#FFFFFF"],
+      "names": ["Orange", "Hot Pink", "White"],
+      "description": "Help enhance creativity and inspiration."
+    },
+    "Charm": {
+      "colors": ["#FFC0CB", "#FF69B4", "#ADD8E6"],
+      "names": ["Pink", "Hot Pink", "Light Blue"],
+      "description": "Help enhance love and personal charm."
+    }
+  },
+  "Tuesday": {
+    "Confident": {
+      "colors": ["#FF0000", "#000000", "#FFD700"],
+      "names": ["Red", "Black", "Gold"],
+      "description": "Help enhance confidence and positive energy."
+    },
+    "Health": {
+      "colors": ["#90EE90", "#FFFF00", "#FFA500"],
+      "names": ["Light Green", "Yellow", "Orange"],
+      "description": "Help enhance health and peace of mind."
+    },
+    "Creative": {
+      "colors": ["#FFD700", "#FF69B4", "#FFA500"],
+      "names": ["Gold", "Hot Pink", "Orange"],
+      "description": "Help enhance creativity and inspiration."
+    },
+    "Charm": {
+      "colors": ["#FF69B4", "#FF0000", "#FFC0CB"],
+      "names": ["Hot Pink", "Red", "Pink"],
+      "description": "Help enhance love and personal charm."
+    }
+  },
+  "Wednesday": {
+    "Confident": {
+      "colors": ["#008000", "#FFD700", "#FFFF00"],
+      "names": ["Green", "Gold", "Yellow"],
+      "description": "Help enhance confidence and positive energy."
+    },
+    "Health": {
+      "colors": ["#90EE90", "#008000", "#FFD700"],
+      "names": ["Light Green", "Green", "Gold"],
+      "description": "Help enhance health and peace of mind."
+    },
+    "Creative": {
+      "colors": ["#FFD700", "#FFA500", "#FFFF00"],
+      "names": ["Gold", "Orange", "Yellow"],
+      "description": "Help enhance creativity and inspiration."
+    },
+    "Charm": {
+      "colors": ["#FFD700", "#FFFDD0", "#FFC0CB"],
+      "names": ["Gold", "Cream", "Pink"],
+      "description": "Help enhance love and personal charm."
+    }
+  },
+  "Thursday": {
+    "Confident": {
+      "colors": ["#ADD8E6", "#008000", "#FFA500"],
+      "names": ["Light Blue", "Green", "Orange"],
+      "description": "Help enhance confidence and positive energy."
+    },
+    "Health": {
+      "colors": ["#90EE90", "#ADD8E6", "#008000"],
+      "names": ["Light Green", "Light Blue", "Green"],
+      "description": "Help enhance health and peace of mind."
+    },
+    "Creative": {
+      "colors": ["#FFA500", "#FFD700", "#ADD8E6"],
+      "names": ["Orange", "Gold", "Light Blue"],
+      "description": "Help enhance creativity and inspiration."
+    },
+    "Charm": {
+      "colors": ["#FF69B4", "#FFC0CB", "#FFA500"],
+      "names": ["Hot Pink", "Pink", "Orange"],
+      "description": "Help enhance love and personal charm."
+    }
+  },
+  "Friday": {
+    "Confident": {
+      "colors": ["#FFC0CB", "#0000FF", "#FFFDD0"],
+      "names": ["Pink", "Blue", "Cream"],
+      "description": "Help enhance confidence and positive energy."
+    },
+    "Health": {
+      "colors": ["#90EE90", "#FFC0CB", "#0000FF"],
+      "names": ["Light Green", "Pink", "Blue"],
+      "description": "Help enhance health and peace of mind."
+    },
+    "Creative": {
+      "colors": ["#0000FF", "#AC2BF9", "#FFD700"],
+      "names": ["Blue", "Deep Purple", "Gold"],
+      "description": "Help enhance creativity and inspiration."
+    },
+    "Charm": {
+      "colors": ["#FFC0CB", "#FF69B4", "#FFD1DC"],
+      "names": ["Pink", "Hot Pink", "Baby Pink"],
+      "description": "Help enhance love and personal charm."
+    }
+  },
+  "Saturday": {
+    "Confident": {
+      "colors": ["#FF0000", "#000000", "#ADD8E6"],
+      "names": ["Red", "Black", "Light Blue"],
+      "description": "Help enhance confidence and positive energy."
+    },
+    "Health": {
+      "colors": ["#90EE90", "#ADD8E6", "#000000"],
+      "names": ["Light Green", "Light Blue", "Black"],
+      "description": "Help enhance health and peace of mind."
+    },
+    "Creative": {
+      "colors": ["#ADD8E6", "#AC2BF9", "#FFD700"],
+      "names": ["Light Blue", "Deep Purple", "Gold"],
+      "description": "Help enhance creativity and inspiration."
+    },
+    "Charm": {
+      "colors": ["#FF69B4", "#FF0000", "#FFC0CB"],
+      "names": ["Hot Pink", "Red", "Pink"],
+      "description": "Help enhance love and personal charm."
+    }
+  }
+}
