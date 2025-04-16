@@ -263,7 +263,9 @@ export default function HomeScreen() {
               {luckyColors.length > 0 && (
                 <TouchableOpacity
                   style={styles.seeMoreContainer}
-                  onPress={() => navigation.navigate("luckyColorBoost")}
+                  onPress={() =>
+                    navigation.navigate("luckyColorBoost", { day: selectedDay })
+                  }
                 >
                   <Text
                     style={[styles.seeMoreText, { color: theme.primaryColor }]}
@@ -318,7 +320,9 @@ export default function HomeScreen() {
               {unluckyColors.length > 0 && (
                 <TouchableOpacity
                   style={styles.seeMoreContainer}
-                  onPress={() => navigation.navigate("luckyColorBoost")}
+                  onPress={() =>
+                    navigation.navigate("luckyColorBoost", { day: selectedDay })
+                  }
                 >
                   <Text
                     style={[styles.seeMoreText, { color: theme.primaryColor }]}

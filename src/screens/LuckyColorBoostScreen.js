@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import OtherHeader from "../components/OtherHeader";
@@ -14,11 +14,11 @@ export default function LuckyColorBoostScreen() {
   const { t } = useTranslation();
   const { theme } = useTheme();
 
-  // Get today's full day name
-  const fullDayName = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-  });
-  const todayData = luckyColorData[fullDayName];
+  const route = useRoute();
+  const selectedDay =
+    route.params?.day ||
+    new Date().toLocaleDateString("en-US", { weekday: "long" });
+  const todayData = luckyColorData[selectedDay];
 
   const sections = [
     { key: "career", title: t("luckySections.career"), icon: "briefcase" },
@@ -26,7 +26,6 @@ export default function LuckyColorBoostScreen() {
     { key: "luck", title: t("luckySections.luck"), icon: "star" },
     { key: "love", title: t("luckySections.love"), icon: "heart" },
   ];
-  
 
   return (
     <SafeAreaView
@@ -39,12 +38,7 @@ export default function LuckyColorBoostScreen() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={[styles.dateText, { color: theme.textColor }]}>
-          {fullDayName},{" "}
-          {new Date().toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
+          {selectedDay}
         </Text>
         <View style={styles.colorContainer}>
           {sections.map((section, index) => {
