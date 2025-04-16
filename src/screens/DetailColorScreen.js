@@ -54,7 +54,7 @@ export default function DetailColorScreen() {
                     styles.colorName,
                     { color: getTextColor(item.color) },
                   ]}
-                >
+                > 
                   {t(`colors.${item.name}`, item.name)}
                 </Text>
               </View>
@@ -71,7 +71,7 @@ export default function DetailColorScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  mainContent: { flex: 1, padding: 20, paddingTop: 23 },
+  mainContent: { flex: 1, padding: 20, paddingTop: 23, marginBottom: 100 },
   colorContainer: { marginTop: 5 },
   colorSection: { marginBottom: 20, alignItems: "center" },
   colorBox: {

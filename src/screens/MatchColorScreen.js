@@ -17,22 +17,23 @@ export default function MatchColorScreen() {
 
   const looks = [
     {
-      title: "Look 1: Confident",
       ...todayLooks.Confident,
+      key: "confident",
     },
     {
-      title: "Look 2: Health",
       ...todayLooks.Health,
+      key: "health",
     },
     {
-      title: "Look 3: Creative",
       ...todayLooks.Creative,
+      key: "creative",
     },
     {
-      title: "Look 4: Charm",
       ...todayLooks.Charm,
+      key: "charm",
     },
   ];
+  
 
   const formattedDate = new Date().toLocaleDateString("en-GB", {
     weekday: "long",
@@ -58,7 +59,7 @@ export default function MatchColorScreen() {
           {looks.map((look, index) => (
             <View key={index} style={styles.colorSection}>
               <Text style={[styles.sectionTitle, { color: theme.textColor }]}>
-                {look.title}
+                {t(`look.${look.key}`)}
               </Text>
               <View
                 style={[
@@ -71,13 +72,13 @@ export default function MatchColorScreen() {
                     key={idx}
                     style={[styles.colorBox, { backgroundColor: color }]}
                   >
-                    <Text style={styles.colorName}>{look.names[idx]}</Text>
+                    <Text style={styles.colorName}>
+                      {t(`colors.${look.names[idx]}`, look.names[idx])}
+                    </Text>
                   </View>
                 ))}
               </View>
-              <Text style={[styles.description, { color: theme.textColor }]}>
-                {look.description}
-              </Text>
+
             </View>
           ))}
         </View>
