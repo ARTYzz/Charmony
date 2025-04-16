@@ -21,7 +21,8 @@ const resources = {
         Cream: "Cream",
         Brown: "Brown",
         "Light Blue": "Light Blue",
-        Peach: "Peach",
+        "Navy Blue":"Navy Blue",
+        "Light Green": "Light Green",
       },
       colorDescriptions: {
         Red: "Represents power, passion, love, courage, and confidence. In some cultures like China, red symbolizes luck and celebration.",
@@ -69,6 +70,9 @@ const resources = {
       personalizedColors: "Personalized Colors",
       DailyColorForecast: "Daily Color Forecast",
       viewAll: "View All",
+      TodayLuckyColor: "Today Lucky Color",
+      TodayUnluckyColor:"Today Unlucky Color",
+      SeeMore:"See More",
 
       // Match color screen
       findYourMatch: "Find Your Match",
@@ -119,6 +123,8 @@ const resources = {
         Cream: "สีครีม",
         Brown: "สีน้ำตาล",
         "Light Blue": "สีฟ้า",
+        "Navy Blue":"สีน้ำเงินเข้ม",
+        "Light Green": "สีเขียวอ่อน",
       },
       colorDescriptions: {
         Red: "เป็นสัญลักษณ์ของพลัง ความหลงใหล ความรัก ความกล้าหาญ และความมั่นใจ สีแดงในบางวัฒนธรรม เช่น จีน หมายถึง ความโชคดีและการเฉลิมฉลอง",
@@ -167,14 +173,16 @@ const resources = {
       personalizedColors: "สีที่เหมาะกับคุณ",
       DailyColorForecast: "ทำนายสีมงคลประจำวัน",
       viewAll: "ดูทั้งหมด",
+      TodayLuckyColor: "สีมงคลประจำวัน",
       TodayUnluckyColor: "สีอัปมงคลประจำวัน",
+      SeeMore:"ดูเพิ่มเติม",
 
       // Match color screen
       findYourMatch: "ค้นหาสีที่เข้ากัน",
       selectColor: "เลือกสี",
       match: "จับคู่",
       results: "ผลลัพธ์",
-      
+
       look: {
         confident: "ลุคที่ 1: มั่นใจ",
         health: "ลุคที่ 2: สุขภาพ",

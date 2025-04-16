@@ -224,7 +224,7 @@ export default function HomeScreen() {
         <View style={styles.colorHighlightContainer}>
           <Text style={[styles.highlightHeader, { color: theme.textColor }]}>
             <Ionicons name="sparkles" size={20} color={theme.primaryColor} />{" "}
-            {t(" Daily Color Forecast")}
+            {t("DailyColorForecast")}
           </Text>
 
           {/* Lucky Colors พร้อม Animation */}
@@ -268,7 +268,7 @@ export default function HomeScreen() {
                   <Text
                     style={[styles.seeMoreText, { color: theme.primaryColor }]}
                   >
-                    {t("See More")}
+                    {t("SeeMore")}
                   </Text>
                   <Ionicons
                     name="chevron-forward"
