@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   Switch,
   Modal,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -15,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import { useLanguage } from "../context/LanguageContext";
 import { useTheme, themes } from "../context/ThemeContext";
 import OtherHeader from "../components/OtherHeader";
+import * as Notifications from "expo-notifications";
+import luckyColorData from "../data/color.json";
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -35,12 +37,29 @@ export default function SettingsScreen() {
     setThemeModalVisible(false);
   };
 
+  const sendTestLuckyColorNotification = async () => {
+    const { status } = await Notifications.requestPermissionsAsync();
+    if (status !== "granted") return;
+
+    const today = new Date();
+    const weekday = today.toLocaleDateString("en-US", { weekday: "long" });
+    const todayColors = luckyColorData[weekday]?.lucky || [];
+    const colorList = todayColors.join(", ");
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "🔮 Your Lucky Color Today!",
+        body: `Today's lucky colors: ${colorList}`,
+      },
+      trigger: { seconds: 2 }, // Sends in 2 seconds (test only)
+    });
+  };
+
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-      <OtherHeader 
-        title={t("settings")} 
-        theme={theme} 
-      />
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.backgroundColor }]}
+    >
+      <OtherHeader title={t("settings")} theme={theme} />
 
       <ScrollView
         style={styles.settingContainer}
@@ -49,12 +68,23 @@ export default function SettingsScreen() {
         <View style={styles.settingItem}>
           <TouchableOpacity
             onPress={() => setThemeModalVisible(true)}
-            style={[styles.settingItem, { borderBottomColor: theme.secondaryColor }]}
+            style={[
+              styles.settingItem,
+              { borderBottomColor: theme.secondaryColor },
+            ]}
           >
-            <Ionicons name="color-palette-outline" size={24} color={theme.textColor} />
-            <Text style={[styles.settingText, { color: theme.textColor }]}>{t("theme")}</Text>
+            <Ionicons
+              name="color-palette-outline"
+              size={24}
+              color={theme.textColor}
+            />
+            <Text style={[styles.settingText, { color: theme.textColor }]}>
+              {t("theme")}
+            </Text>
             <View style={styles.settingRight}>
-              <Text style={[styles.settingValue, { color: theme.textColor }]}>{t(themeMode)}</Text>
+              <Text style={[styles.settingValue, { color: theme.textColor }]}>
+                {t(themeMode)}
+              </Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={24}
@@ -64,13 +94,24 @@ export default function SettingsScreen() {
           </TouchableOpacity>
         </View>
 
-        <View style={[styles.settingItem, { borderBottomColor: theme.secondaryColor }]}>
+        <View
+          style={[
+            styles.settingItem,
+            { borderBottomColor: theme.secondaryColor },
+          ]}
+        >
           <TouchableOpacity
             onPress={() => setLanguageModalVisible(true)}
             style={styles.settingItem}
           >
-            <Ionicons name="language-outline" size={24} color={theme.textColor} />
-            <Text style={[styles.settingText, { color: theme.textColor }]}>{t("language")}</Text>
+            <Ionicons
+              name="language-outline"
+              size={24}
+              color={theme.textColor}
+            />
+            <Text style={[styles.settingText, { color: theme.textColor }]}>
+              {t("language")}
+            </Text>
             <View style={styles.settingRight}>
               <Text style={[styles.settingValue, { color: theme.textColor }]}>
                 {language === "th" ? t("thai") : t("english")}
@@ -85,12 +126,29 @@ export default function SettingsScreen() {
           </TouchableOpacity>
         </View>
 
-        <View style={[styles.settingItem, { borderBottomColor: theme.secondaryColor }]}>
-          <Ionicons name="notifications-outline" size={24} color={theme.textColor} />
-          <Text style={[styles.settingText, { color: theme.textColor }]}>{t("notification")}</Text>
+        <View
+          style={[
+            styles.settingItem,
+            { borderBottomColor: theme.secondaryColor },
+          ]}
+        >
+          <Ionicons
+            name="notifications-outline"
+            size={24}
+            color={theme.textColor}
+          />
+          <Text style={[styles.settingText, { color: theme.textColor }]}>
+            {t("notification")}
+          </Text>
           <Switch
             value={isNotificationEnabled}
-            onValueChange={() => setIsNotificationEnabled((prev) => !prev)}
+            onValueChange={() =>
+              setIsNotificationEnabled((prev) => {
+                const next = !prev;
+                if (next) sendTestLuckyColorNotification(); // 🔔 Send when toggled ON
+                return next;
+              })
+            }
             trackColor={{ false: "#767577", true: theme.primaryColor }}
           />
         </View>
@@ -99,7 +157,12 @@ export default function SettingsScreen() {
       {/* Language Modal */}
       <Modal visible={isLanguageModalVisible} transparent animationType="slide">
         <View style={styles.modalContainer}>
-          <View style={[styles.modalContent, { backgroundColor: theme.cardBackground }]}>
+          <View
+            style={[
+              styles.modalContent,
+              { backgroundColor: theme.cardBackground },
+            ]}
+          >
             <TouchableOpacity onPress={() => handleLanguageChange("en")}>
               <Text
                 style={[
@@ -132,7 +195,12 @@ export default function SettingsScreen() {
       {/* Theme Modal */}
       <Modal visible={isThemeModalVisible} transparent animationType="slide">
         <View style={styles.modalContainer}>
-          <View style={[styles.modalContent, { backgroundColor: theme.cardBackground }]}>
+          <View
+            style={[
+              styles.modalContent,
+              { backgroundColor: theme.cardBackground },
+            ]}
+          >
             <TouchableOpacity onPress={() => handleThemeChange("light")}>
               <Text
                 style={[
@@ -166,10 +234,10 @@ export default function SettingsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1 
+  container: {
+    flex: 1,
   },
-  settingContainer: { 
+  settingContainer: {
     flex: 1,
     padding: 20,
     paddingTop: 23,
@@ -181,18 +249,18 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderBottomWidth: 1,
   },
-  settingText: { 
-    fontSize: 18, 
-    flex: 1, 
-    marginLeft: 10 
+  settingText: {
+    fontSize: 18,
+    flex: 1,
+    marginLeft: 10,
   },
-  settingRight: { 
-    flexDirection: "row", 
-    alignItems: "center" 
+  settingRight: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  settingValue: { 
-    fontSize: 16, 
-    marginRight: 10 
+  settingValue: {
+    fontSize: 16,
+    marginRight: 10,
   },
   modalContainer: {
     flex: 1,
@@ -211,9 +279,9 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
   },
-  selectedOption: { 
-    fontWeight: "bold", 
-    textDecorationLine: "underline" 
+  selectedOption: {
+    fontWeight: "bold",
+    textDecorationLine: "underline",
   },
   cancelOption: {
     color: "red",
@@ -221,4 +289,4 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     textAlign: "center",
   },
-}); 
+});
