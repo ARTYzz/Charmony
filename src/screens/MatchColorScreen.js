@@ -1,4 +1,3 @@
-// screens/MatchColorScreen.js
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -6,55 +5,35 @@ import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import OtherHeader from "../components/OtherHeader";
 import matchColors from "../data/matchColors.json";
-
-const fullDayName = new Date().toLocaleDateString("en-US", { weekday: "long" });
-const todayLooks = matchColors[fullDayName];
+import { useSelectedDay } from "../context/SelectedDayContext";
 
 export default function MatchColorScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { selectedDay } = useSelectedDay(); // ✅ get day from context
+
+  const todayLooks = matchColors[selectedDay] || {};
 
   const looks = [
-    {
-      ...todayLooks.Confident,
-      key: "confident",
-    },
-    {
-      ...todayLooks.Health,
-      key: "health",
-    },
-    {
-      ...todayLooks.Creative,
-      key: "creative",
-    },
-    {
-      ...todayLooks.Charm,
-      key: "charm",
-    },
+    { ...todayLooks.Confident, key: "confident" },
+    { ...todayLooks.Health, key: "health" },
+    { ...todayLooks.Creative, key: "creative" },
+    { ...todayLooks.Charm, key: "charm" },
   ];
-  
-
-  const formattedDate = new Date().toLocaleDateString("en-GB", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
     >
       <OtherHeader title={t("matchColor")} theme={theme} />
-
       <ScrollView
         style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[styles.dateText, { color: theme.textColor }]}>
-          {formattedDate}
+          {selectedDay}
         </Text>
         <View style={styles.colorContainer}>
           {looks.map((look, index) => (
@@ -68,7 +47,7 @@ export default function MatchColorScreen() {
                   { backgroundColor: theme.secondaryColor },
                 ]}
               >
-                {look.colors.map((color, idx) => (
+                {look?.colors?.map((color, idx) => (
                   <View
                     key={idx}
                     style={[styles.colorBox, { backgroundColor: color }]}
@@ -79,7 +58,6 @@ export default function MatchColorScreen() {
                   </View>
                 ))}
               </View>
-
             </View>
           ))}
         </View>
@@ -94,11 +72,7 @@ const styles = StyleSheet.create({
   dateText: { fontSize: 16, fontWeight: "medium", marginTop: 2 },
   colorContainer: { marginTop: 5 },
   colorSection: { marginBottom: 20 },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
+  sectionTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 10 },
   colorBoxContainer: {
     flexDirection: "row",
     justifyContent: "flex-start",

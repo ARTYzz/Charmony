@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
-import { LinearGradient } from "expo-linear-gradient";
+import { useSelectedDay } from "../context/SelectedDayContext";
 // ต้องอัปเดต path ของ colorData เมื่อย้ายไฟล์ data
 import colorData from "../data/color.json";
 import HomeHeader from "../components/HomeHeader.js";
@@ -52,7 +52,7 @@ export default function HomeScreen() {
 
   // State
   const [warningVisible, setWarningVisible] = useState(true);
-  const [selectedDay, setSelectedDay] = useState(getCurrentDay());
+  const { selectedDay, setSelectedDay } = useSelectedDay();
   const [luckyColors, setLuckyColors] = useState([]);
   const [unluckyColors, setUnluckyColors] = useState([]);
 

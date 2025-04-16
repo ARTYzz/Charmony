@@ -1,23 +1,19 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import OtherHeader from "../components/OtherHeader";
-
-// Import lucky color data
 import luckyColorData from "../data/luckyColors.json";
+import { useSelectedDay } from "../context/SelectedDayContext"; // ✅ context
 
 export default function LuckyColorBoostScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { selectedDay } = useSelectedDay(); // ✅ current day
 
-  const route = useRoute();
-  const selectedDay =
-    route.params?.day ||
-    new Date().toLocaleDateString("en-US", { weekday: "long" });
   const todayData = luckyColorData[selectedDay];
 
   const sections = [
@@ -42,7 +38,7 @@ export default function LuckyColorBoostScreen() {
         </Text>
         <View style={styles.colorContainer}>
           {sections.map((section, index) => {
-            const item = todayData[section.key]; // now it's an array
+            const item = todayData[section.key] || [];
             return (
               <View key={index} style={styles.colorSection}>
                 <View style={styles.colorHeader}>
@@ -88,7 +84,7 @@ export default function LuckyColorBoostScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  mainContent: { flex: 1, padding: 20, paddingTop: 23,},
+  mainContent: { flex: 1, padding: 20, paddingTop: 23 },
   dateText: { fontSize: 15, fontWeight: "medium", marginTop: 2 },
   colorContainer: { marginTop: 5 },
   colorSection: { marginBottom: 20 },

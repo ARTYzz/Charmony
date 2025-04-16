@@ -11,6 +11,7 @@ import { ThemeProvider } from "./src/context/ThemeContext";
 
 // Import MainNavigator
 import MainNavigator from "./src/navigation/MainNavigator";
+import { SelectedDayProvider } from "./src/context/SelectedDayContext";
 
 // Notification-related
 import * as Notifications from "expo-notifications";
@@ -44,17 +45,20 @@ export default function App() {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#5B3E90" />
+        Loading...
       </View>
     );
   }
-
   return (
     <LanguageProvider>
       <ThemeProvider>
-        <NavigationContainer>
-          <MainNavigator />
-        </NavigationContainer>
+        <SelectedDayProvider>
+          {" "}
+          {/* ✅ must wrap your app here */}
+          <NavigationContainer>
+            <MainNavigator />
+          </NavigationContainer>
+        </SelectedDayProvider>
       </ThemeProvider>
     </LanguageProvider>
   );
