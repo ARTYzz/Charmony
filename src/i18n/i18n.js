@@ -4,7 +4,45 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const resources = {
   en: {
-    translation: {
+    translation: {// Inside both `en.translation` and `th.translation`
+      colors: {
+        Red: "Red",
+        Blue: "Blue",
+        Green: "Green",
+        Yellow: "Yellow",
+        Pink: "Pink",
+        Purple: "Purple",
+        Black: "Black",
+        White: "White",
+        Gray: "Gray",
+        Orange: "Orange",
+        Gold: "Gold",
+        Cream: "Cream",
+        Brown: "Brown",
+        "Light Blue": "Light Blue",
+        Peach: "Peach",
+      },
+      colorDescriptions: {
+        Red: "Represents power, passion, love, courage, and confidence. In some cultures like China, red symbolizes luck and celebration.",
+        Pink: "Symbolizes gentleness, romance, and innocence. It often evokes feelings of nurturing and comfort.",
+        White: "Stands for purity, cleanliness, simplicity, and new beginnings.",
+        Gray: "Represents neutrality, calmness, stability, and sophistication.",
+        Black: "Represents mystery, authority, elegance, and sometimes grief.",
+        Green: "Symbolizes nature, freshness, balance, and growth.",
+        "Light Green": "Associated with softness, youthfulness, and new beginnings.",
+        Gold: "Represents wealth, luxury, and prestige.",
+        Orange: "Symbolizes fun, enthusiasm, creativity, and energy.",
+        Yellow: "Associated with happiness, brightness, positivity, and intellect.",
+        Cream: "Represents warmth, calmness, and simplicity.",
+        Brown: "Symbolizes stability, nature, and reliability.",
+        Blue: "Represents calmness, confidence, intelligence, and trust.",
+        "Light Blue": "Symbolizes lightness, relaxation, and openness.",
+        "Navy Blue": "Associated with depth, authority, and reliability.",
+        Purple: "Symbolizes mystery, creativity, luxury, and spirituality."
+      },
+      
+
+      
       // Navigation
       home: "Home",
       matchColor: "Match Color",
@@ -13,7 +51,7 @@ const resources = {
       settings: "Settings",
       
       // Settings screen
-      language: "Language",
+      language: "Language", 
       theme: "Color Theme",
       notification: "Notification",
       english: "English",
@@ -27,7 +65,10 @@ const resources = {
       discover: "Discover Your Color",
       todayColor: "Today's Color",
       personalizedColors: "Personalized Colors",
+      DailyColorForecast: "Daily Color Forecast",
       viewAll: "View All",
+      TodayUnluckyColor: "Today Unlucky Colors",
+      TodayLuckyColor: "Today Lucky Colors",
       
       
       // Match color screen
@@ -55,7 +96,42 @@ const resources = {
     },
   },
   th: {
-    translation: {
+    translation: {// Thai
+      colors: {
+        Red: "สีแดง",
+        Blue: "สีน้ำเงิน",
+        Green: "สีเขียว",
+        Yellow: "สีเหลือง",
+        Pink: "สีชมพู",
+        Purple: "สีม่วง",
+        Black: "สีดำ",
+        White: "สีขาว",
+        Gray: "สีเทา",
+        Orange: "สีส้ม",
+        Gold: "สีทอง",
+        Cream: "สีครีม",
+        Brown: "สีน้ำตาล",
+        "Light Blue": "สีฟ้า"
+      },
+      colorDescriptions: {
+        Red: "เป็นสัญลักษณ์ของพลัง ความหลงใหล ความรัก ความกล้าหาญ และความมั่นใจ สีแดงในบางวัฒนธรรม เช่น จีน หมายถึง ความโชคดีและการเฉลิมฉลอง",
+        Pink: "เป็นสัญลักษณ์ของความอ่อนโยน ความโรแมนติก และความไร้เดียงสา มักกระตุ้นให้เกิดความรู้สึกของการเอาใจใส่และปลอบโยน",
+        White: "หมายถึง ความบริสุทธิ์ ความสะอาด ความเรียบง่าย และการเริ่มต้นใหม่",
+        Gray: "เป็นตัวแทนของความเป็นกลาง ความสงบ ความมั่นคง และความซับซ้อน",
+        Black: "เป็นสัญลักษณ์ของความลึกลับ อำนาจ ความสง่างาม และบางครั้งหมายถึงความโศกเศร้า",
+        Green: "เป็นตัวแทนของธรรมชาติ ความสดชื่น ความสมดุล และการเติบโต",
+        "Light Green": "เชื่อมโยงกับความอ่อนโยน ความเยาว์วัย และการเริ่มต้นใหม่",
+        Gold: "เป็นสัญลักษณ์ของความมั่งคั่ง ความหรูหรา และศักดิ์ศรี",
+        Orange: "หมายถึง ความสนุก ความกระตือรือร้น ความคิดสร้างสรรค์ และพลังงาน",
+        Yellow: "เกี่ยวข้องกับความสุข ความสดใส ความคิดบวก และสติปัญญา",
+        Cream: "เป็นสัญลักษณ์ของความอบอุ่น ความสงบ และความเรียบง่าย",
+        Brown: "เป็นตัวแทนของความมั่นคง ธรรมชาติ และความน่าเชื่อถือ",
+        Blue: "เป็นสัญลักษณ์ของความสงบ ความมั่นใจ สติปัญญา และความไว้วางใจ",
+        "Light Blue": "หมายถึง ความเบา ความผ่อนคลาย และความเปิดเผย",
+        "Navy Blue": "เชื่อมโยงกับความลึก อำนาจ และความน่าเชื่อถือ",
+        Purple: "เป็นสัญลักษณ์ของความลึกลับ ความคิดสร้างสรรค์ ความหรูหรา และจิตวิญญาณ"
+      },
+
       // Navigation
       home: "หน้าหลัก",
       matchColor: "จับคู่สี",
@@ -76,10 +152,11 @@ const resources = {
       // Home screen
       welcome: "ยินดีต้อนรับ",
       discover: "ค้นพบสีของคุณ",
-      TodayLuckyColor: "สีมงคลประจำวันนี้",
       personalizedColors: "สีที่เหมาะกับคุณ",
+      DailyColorForecast: "ทำนายสีมงคลประจำวัน",
       viewAll: "ดูทั้งหมด",
       TodayUnluckyColor: "สีอัปมงคลประจำวัน",
+      TodayLuckyColor: "สีมงคลประจำวันนี้",
       
       // Match color screen
       findYourMatch: "ค้นหาสีที่เข้ากัน",

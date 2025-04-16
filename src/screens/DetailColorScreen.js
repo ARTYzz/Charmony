@@ -55,11 +55,11 @@ export default function DetailColorScreen() {
                     { color: getTextColor(item.color) },
                   ]}
                 >
-                  {item.name}
+                  {t(`colors.${item.name}`, item.name)}
                 </Text>
               </View>
               <Text style={[styles.description, { color: theme.textColor }]}>
-                {item.description}
+                {t(`colorDescriptions.${item.name}`)}
               </Text>
             </View>
           ))}

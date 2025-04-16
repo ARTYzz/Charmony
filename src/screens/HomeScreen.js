@@ -156,13 +156,13 @@ export default function HomeScreen() {
       >
         <View style={styles.colorBoxInner}>
           <Text style={[styles.colorText, { color: getTextColor(colorHex) }]}>
-            {color}
+            {t(`colors.${color}`)}
           </Text>
         </View>
       </View>
     );
   }
-
+  
   // Animation style ที่ใช้กับ Animated.View
   const animationStyle = {
     opacity: fadeAnim,
@@ -208,7 +208,7 @@ export default function HomeScreen() {
         {/* หัวข้อสีของวัน */}
         <View style={styles.colorHighlightContainer}>
           <Text style={[styles.highlightHeader, { color: theme.textColor }]}>
-            <Ionicons name="sparkles" size={20} color={theme.primaryColor} /> {t(" Daily Color Forecast")}
+            <Ionicons name="sparkles" size={20} color={theme.primaryColor} /> {t("DailyColorForecast")}
           </Text>
           
           {/* Lucky Colors พร้อม Animation */}
