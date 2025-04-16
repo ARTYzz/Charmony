@@ -34,6 +34,7 @@ export default function DetailColorScreen() {
       <OtherHeader title={t("colorDetails")} theme={theme} />
       <ScrollView
         style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.colorContainer}>
@@ -71,7 +72,7 @@ export default function DetailColorScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  mainContent: { flex: 1, padding: 20, paddingTop: 23, marginBottom: 100 },
+  mainContent: { flex: 1, padding: 20, paddingTop: 23},
   colorContainer: { marginTop: 5 },
   colorSection: { marginBottom: 20, alignItems: "center" },
   colorBox: {

@@ -50,6 +50,7 @@ export default function MatchColorScreen() {
 
       <ScrollView
         style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[styles.dateText, { color: theme.textColor }]}>

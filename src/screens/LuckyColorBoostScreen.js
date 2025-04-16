@@ -35,6 +35,7 @@ export default function LuckyColorBoostScreen() {
       <OtherHeader title={t("boostYourLuck")} theme={theme} />
       <ScrollView
         style={[styles.mainContent, { backgroundColor: theme.backgroundColor }]}
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
         <Text style={[styles.dateText, { color: theme.textColor }]}>
@@ -93,7 +94,7 @@ export default function LuckyColorBoostScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  mainContent: { flex: 1, padding: 20, paddingTop: 23 },
+  mainContent: { flex: 1, padding: 20, paddingTop: 23,},
   dateText: { fontSize: 15, fontWeight: "medium", marginTop: 2 },
   colorContainer: { marginTop: 5 },
   colorSection: { marginBottom: 20 },
