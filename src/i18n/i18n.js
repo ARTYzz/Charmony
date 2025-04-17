@@ -49,7 +49,7 @@ const resources = {
       matchColor: "Match Color",
       "Match Color": "Match Color",
       luckyColorBoost: "Lucky Color",
-      "LuckyColorBoost": "Lucky Color",
+      "LuckyColorBoost": "Lucky Color Boost",
       detailColor: "Color Detail",
       colorDetails: "Color Details",
       "Color Details": "Color Details",
@@ -146,7 +146,6 @@ const resources = {
         "Hot Pink" : "สีชมพูอัมพฤกษ์",
         "Light Pink" : "สีชมพูอ่อน",
         "Deep Purple" : "สีม่วงเข้ม",
-        "Baby Pink" : "สีชมพูอ่อน",
       },
       colorDescriptions: {
         Red: "เป็นสัญลักษณ์ของพลัง ความหลงใหล ความรัก ความกล้าหาญ และความมั่นใจ สีแดงในบางวัฒนธรรม เช่น จีน หมายถึง ความโชคดีและการเฉลิมฉลอง",
