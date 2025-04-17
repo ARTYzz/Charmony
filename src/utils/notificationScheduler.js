@@ -20,7 +20,7 @@ export async function scheduleDailyLuckyColorNotification(luckyColorData) {
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "🔮 Your Lucky Color Today!",
-      body: `Today's lucky colors: ${colorList}`,
+      body: `Today's lucky colors : ${colorList}`,
     },
     trigger: {
       hour: 6,

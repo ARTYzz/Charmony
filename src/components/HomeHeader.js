@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLanguage } from "../context/LanguageContext";
+import { useTranslation } from "react-i18next";
+import { getFontFamily } from "../utils/fontUtils";
 
 // Get screen dimensions
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -10,6 +13,13 @@ const HEADER_HEIGHT = Math.min(SCREEN_HEIGHT * 0.20, 160); // ลดความ
 
 // Header Component
 const HomeHeader = ({ theme }) => {
+  const { language } = useLanguage();
+  const { t } = useTranslation();
+  
+  // Get appropriate fonts based on language
+  const regularFont = getFontFamily(language, 'regular');
+  const boldFont = getFontFamily(language, 'bold');
+  
   // Generate gradient colors based on theme or use default purple
   const primaryColor = theme?.primaryColor || "#5B3E90";
   const gradientColors = [
@@ -29,14 +39,16 @@ const HomeHeader = ({ theme }) => {
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.headerContent}>
             <View style={styles.logoContainer}>
-              <Text style={styles.logo}>CHARMONY</Text>
+              <Text style={[styles.logo, { fontFamily: boldFont }]}>CHARMONY</Text>
               <View style={styles.dividerContainer}>
                 <View style={styles.dividerLine} />
                 <Ionicons name="color-palette-outline" size={16} color="rgba(255,255,255,0.9)" />
                 <View style={styles.dividerLine} />
               </View>
             </View>
-            <Text style={styles.subtitle}>Your Daily Color Guide</Text>
+            <Text style={[styles.subtitle, { fontFamily: regularFont }]}>
+              {t("Your Daily Color Guide", "Your Daily Color Guide")}
+            </Text>
             
             <View style={styles.decorContainer}>
               <View style={[styles.decorDot, { left: '15%', top: '40%' }]} />
@@ -87,7 +99,6 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: Math.min(SCREEN_WIDTH * 0.09, 36), // Responsive font size based on screen width
-    fontFamily: 'Nunito-Bold',
     color: "#FFFFFF",
     textAlign: "center",
     letterSpacing: 3,
@@ -110,7 +121,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: Math.min(SCREEN_WIDTH * 0.045, 18), // Responsive font size
-    fontFamily: 'Nunito',
     color: "#FFFFFF",
     opacity: 0.9,
     letterSpacing: 1.2,

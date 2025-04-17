@@ -9,15 +9,31 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '../context/LanguageContext';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import colorData from '../data/color.json';
 
 const { width } = Dimensions.get('window');
 const CELL_SIZE = 30;
 
+// เพิ่มการแปลชื่อวันเป็นภาษาไทย
+const dayNamesEN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const dayNamesTH = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
+
+// เพิ่มการแปลชื่อเดือนเป็นภาษาไทย
+const monthNamesEN = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+const monthNamesTH = [
+  'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+  'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+];
+
 const ColorCalendar = ({ onSelectDay }) => {
   const { t } = useTranslation();
   const { theme, themeMode } = useTheme();
+  const { language } = useLanguage();
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [weeks, setWeeks] = useState([]);
@@ -78,6 +94,12 @@ const ColorCalendar = ({ onSelectDay }) => {
 
   // Function to go to next month with animation
   const goToNextMonth = () => {
+    // Check if we're already at December 2025
+    if (currentMonth.getFullYear() === 2025 && currentMonth.getMonth() === 11) {
+      // Already at max date (December 2025), don't go further
+      return;
+    }
+    
     // Start animation (slide left)
     direction.current = -1;
     translateX.value = 0;
@@ -216,6 +238,19 @@ const ColorCalendar = ({ onSelectDay }) => {
     );
   };
 
+  // Get the formatted month-year string based on language
+  const getFormattedMonthYear = (date) => {
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    
+    if (language === 'th') {
+      // Thai calendar shows year as Buddhist Era (BE), which is CE + 543
+      return `${monthNamesTH[month]} ${year + 543}`;
+    } else {
+      return `${monthNamesEN[month]} ${year}`;
+    }
+  };
+
   return (
     <View style={[
       styles.calendarContainer, 
@@ -229,7 +264,7 @@ const ColorCalendar = ({ onSelectDay }) => {
         
         <Animated.View style={[styles.monthYearContainer, animatedStyle]}>
           <Text style={[styles.monthYearText, { color: theme.textColor }]}>
-            {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            {getFormattedMonthYear(currentMonth)}
           </Text>
         </Animated.View>
         
@@ -249,12 +284,12 @@ const ColorCalendar = ({ onSelectDay }) => {
         <Text style={[
           styles.todayButtonText, 
           { color: theme.primaryColor }
-        ]}>{t('today')}</Text>
+        ]}>{t('Today')}</Text>
       </TouchableOpacity>
       
       {/* Day names header */}
       <View style={styles.weekdayHeader}>
-        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, i) => (
+        {(language === 'th' ? dayNamesTH : dayNamesEN).map((day, i) => (
           <Text 
             key={i} 
             style={[
