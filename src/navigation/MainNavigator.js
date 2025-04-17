@@ -7,6 +7,8 @@ import { useLanguage } from "../context/LanguageContext";
 import { useTheme } from "../context/ThemeContext";
 import { BlurView } from "expo-blur";
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
+import { useSelectedDay } from "../context/SelectedDayContext";
+import { getFontFamily } from "../utils/fontUtils";
 
 import HomeScreen from "../screens/HomeScreen";
 import MatchColorScreen from "../screens/MatchColorScreen";
@@ -21,6 +23,10 @@ const { width } = Dimensions.get('window');
 function TabLabel({ labelKey, focused }) {
   const { t } = useTranslation();
   const { theme } = useTheme();
+  const { language } = useLanguage();
+  
+  // Get appropriate font based on language and focus state
+  const fontFamily = getFontFamily(language, focused ? 'bold' : 'regular');
   
   return (
     <Text 
@@ -29,7 +35,7 @@ function TabLabel({ labelKey, focused }) {
         fontWeight: focused ? "bold" : "normal", 
         color: focused ? theme.name === "dark" ? "#FFFFFF" : "#FFFFFF" : theme.name === "dark" ? "#A68ECC" : "#D7C3FF",
         marginTop: 2,
-        fontFamily: focused ? 'Nunito-Bold' : 'Nunito-Regular',
+        fontFamily: fontFamily,
       }}
     >
       {t(labelKey)}
@@ -52,6 +58,7 @@ function MainNavigator() {
   const { t } = useTranslation();
   const { language } = useLanguage();
   const { theme, themeMode } = useTheme();
+  const { selectedDay } = useSelectedDay();
   
   // Set theme-specific colors
   const tabBarBgColor = themeMode === "dark" ? "#2D2252" : "#6845A3";
@@ -112,7 +119,7 @@ function MainNavigator() {
         },
         tabBarLabelStyle: {
           fontFamily: 'Nunito-Regular',
-          fontSize: 11,
+          fontSize: 13,
           marginTop: 3,
         },
         tabBarActiveTintColor: activeColor,
@@ -122,6 +129,7 @@ function MainNavigator() {
       <Tab.Screen 
         name="matchColor" 
         component={MatchColorScreen}
+        key={`matchColor-${selectedDay}`}
         options={{
           headerShown: false,
           tabBarLabel: ({ focused }) => <TabLabel labelKey="matchColor" focused={focused} />,
@@ -130,6 +138,7 @@ function MainNavigator() {
       <Tab.Screen 
         name="luckyColorBoost" 
         component={LuckyColorBoostScreen}
+        key={`luckyColorBoost-${selectedDay}`}
         options={{ 
           headerShown: false,
           tabBarLabel: ({ focused }) => <TabLabel labelKey="luckyColorBoost" focused={focused} />,

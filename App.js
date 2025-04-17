@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, Text } from "react-native";
 
 // Import i18n config
 import "./src/i18n/i18n";
@@ -45,7 +45,7 @@ export default function App() {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        Loading...
+        <Text>Loading...</Text>
       </View>
     );
   }
@@ -53,7 +53,6 @@ export default function App() {
     <LanguageProvider>
       <ThemeProvider>
         <SelectedDayProvider>
-          {" "}
           {/* ✅ must wrap your app here */}
           <NavigationContainer>
             <MainNavigator />

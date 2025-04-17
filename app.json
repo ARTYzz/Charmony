@@ -38,6 +38,18 @@
       {
         "asset": "./assets/fonts/Nunito-Light.ttf",
         "family": "Nunito-Light"
+      },
+      {
+        "asset": "./assets/fonts/NotoSansThai-Regular.ttf",
+        "family": "NotoSansThai"
+      },
+      {
+        "asset": "./assets/fonts/NotoSansThai-Bold.ttf",
+        "family": "NotoSansThai-Bold"
+      },
+      {
+        "asset": "./assets/fonts/NotoSansThai-Light.ttf",
+        "family": "NotoSansThai-Light"
       }
     ]
   }

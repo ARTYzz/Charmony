@@ -4,6 +4,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useLanguage } from "../context/LanguageContext";
+import { getFontFamily } from "../utils/fontUtils";
 
 // Get screen dimensions
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -11,6 +13,10 @@ const HEADER_HEIGHT = Math.min(SCREEN_HEIGHT * 0.14, 120); // ลดความ
 
 const OtherHeader = ({ title, theme, showBackButton = true, customAction }) => {
   const navigation = useNavigation();
+  const { language } = useLanguage();
+  
+  // Get the appropriate font based on language
+  const boldFont = getFontFamily(language, 'bold');
   
   const handleBackPress = () => {
     navigation.navigate('home');
@@ -50,7 +56,9 @@ const OtherHeader = ({ title, theme, showBackButton = true, customAction }) => {
             )}
             
             <View style={styles.titleContainer}>
-              <Text style={styles.logo}>{title.toUpperCase()}</Text>
+              <Text style={[styles.logo, { fontFamily: boldFont }]}>
+                {title.toUpperCase()}
+              </Text>
               <View style={styles.decorUnderline}>
                 <View style={styles.underlineLine} />
                 <View style={styles.underlineDot} />
@@ -131,7 +139,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    fontFamily: 'Nunito-Bold', 
     color: "white",
     fontSize: 22,
     fontWeight: "bold",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   Switch,
   Modal,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +18,10 @@ import { useTheme, themes } from "../context/ThemeContext";
 import OtherHeader from "../components/OtherHeader";
 import * as Notifications from "expo-notifications";
 import luckyColorData from "../data/color.json";
+import { scheduleDailyLuckyColorNotification } from "../utils/notificationScheduler";
+import { getFontFamily } from "../utils/fontUtils";
+
+const { width } = Dimensions.get('window');
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -27,32 +32,56 @@ export default function SettingsScreen() {
   const [isLanguageModalVisible, setLanguageModalVisible] = useState(false);
   const [isThemeModalVisible, setThemeModalVisible] = useState(false);
 
-  const handleLanguageChange = (lang) => {
-    changeLanguage(lang);
+  // Get appropriate fonts based on language
+  const regularFont = getFontFamily(language, 'regular');
+  const boldFont = getFontFamily(language, 'bold');
+
+  // ตรวจสอบสถานะการแจ้งเตือนเมื่อโหลดหน้าจอ
+  useEffect(() => {
+    checkNotificationStatus();
+  }, []);
+
+  // ตรวจสอบและอัปเดตสถานะการแจ้งเตือน
+  const checkNotificationStatus = async () => {
+    try {
+      const { status } = await Notifications.getPermissionsAsync();
+      setIsNotificationEnabled(status === "granted");
+    } catch (error) {
+      console.error("Failed to check notification status:", error);
+      setIsNotificationEnabled(false);
+    }
+  };
+
+  // จัดการการเปลี่ยนภาษา
+  const handleLanguageChange = (newLanguage) => {
+    changeLanguage(newLanguage);
     setLanguageModalVisible(false);
   };
 
+  // จัดการการเปลี่ยนธีม
   const handleThemeChange = (newTheme) => {
     changeTheme(newTheme);
     setThemeModalVisible(false);
   };
 
-  const sendTestLuckyColorNotification = async () => {
-    const { status } = await Notifications.requestPermissionsAsync();
-    if (status !== "granted") return;
-
-    const today = new Date();
-    const weekday = today.toLocaleDateString("en-US", { weekday: "long" });
-    const todayColors = luckyColorData[weekday]?.lucky || [];
-    const colorList = todayColors.join(", ");
-
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "🔮 Your Lucky Color Today!",
-        body: `Today's lucky colors: ${colorList}`,
-      },
-      trigger: { seconds: 2 }, // Sends in 2 seconds (test only)
-    });
+  // จัดการการเปลี่ยนสถานะการแจ้งเตือน
+  const handleNotificationToggle = async (value) => {
+    try {
+      if (value) {
+        const { status } = await Notifications.requestPermissionsAsync();
+        if (status === "granted") {
+          await scheduleDailyLuckyColorNotification(luckyColorData);
+          setIsNotificationEnabled(true);
+        } else {
+          setIsNotificationEnabled(false);
+        }
+      } else {
+        await Notifications.cancelAllScheduledNotificationsAsync();
+        setIsNotificationEnabled(false);
+      }
+    } catch (error) {
+      console.error("Failed to toggle notifications:", error);
+    }
   };
 
   return (
@@ -60,102 +89,149 @@ export default function SettingsScreen() {
       style={[styles.container, { backgroundColor: theme.backgroundColor }]}
     >
       <OtherHeader title={t("settings")} theme={theme} />
-
       <ScrollView
-        style={styles.settingContainer}
+        style={[styles.scrollContent, { backgroundColor: theme.backgroundColor }]}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.settingItem}>
+        <Text style={[
+          styles.sectionTitle, 
+          { 
+            color: theme.primaryColor,
+            fontFamily: boldFont
+          }
+        ]}>
+          {t("appearance")}
+        </Text>
+
+        <View style={[styles.settingGroup, { backgroundColor: theme.cardBackground }]}>
           <TouchableOpacity
             onPress={() => setThemeModalVisible(true)}
-            style={[
-              styles.settingItem,
-              { borderBottomColor: theme.secondaryColor },
-            ]}
+            style={styles.settingItem}
           >
-            <Ionicons
-              name="color-palette-outline"
-              size={24}
-              color={theme.textColor}
-            />
-            <Text style={[styles.settingText, { color: theme.textColor }]}>
-              {t("theme")}
-            </Text>
+            <View style={styles.settingLeft}>
+              <View style={[styles.iconContainer, { backgroundColor: themeMode === 'dark' ? '#554388' : '#E5D8FF' }]}>
+                <Ionicons
+                  name="color-palette-outline"
+                  size={20}
+                  color={themeMode === 'dark' ? '#BFA8FF' : '#6845A3'}
+                />
+              </View>
+              <Text style={[
+                styles.settingText, 
+                { 
+                  color: theme.textColor,
+                  fontFamily: regularFont
+                }
+              ]}>
+                {t("theme")}
+              </Text>
+            </View>
             <View style={styles.settingRight}>
-              <Text style={[styles.settingValue, { color: theme.textColor }]}>
-                {t(themeMode)}
+              <Text style={[
+                styles.settingValue, 
+                { 
+                  color: theme.textColor,
+                  fontFamily: regularFont
+                }
+              ]}>
+                {themeMode === "dark" ? t("dark") : t("light")}
               </Text>
               <Ionicons
-                name="chevron-forward-outline"
-                size={24}
+                name="chevron-forward"
+                size={20}
                 color={theme.textColor}
               />
             </View>
           </TouchableOpacity>
-        </View>
 
-        <View
-          style={[
-            styles.settingItem,
-            { borderBottomColor: theme.secondaryColor },
-          ]}
-        >
           <TouchableOpacity
             onPress={() => setLanguageModalVisible(true)}
             style={styles.settingItem}
           >
-            <Ionicons
-              name="language-outline"
-              size={24}
-              color={theme.textColor}
-            />
-            <Text style={[styles.settingText, { color: theme.textColor }]}>
-              {t("language")}
-            </Text>
+            <View style={styles.settingLeft}>
+              <View style={[styles.iconContainer, { backgroundColor: themeMode === 'dark' ? '#554388' : '#E5D8FF' }]}>
+                <Ionicons
+                  name="language"
+                  size={20}
+                  color={themeMode === 'dark' ? '#BFA8FF' : '#6845A3'}
+                />
+              </View>
+              <Text style={[
+                styles.settingText, 
+                { 
+                  color: theme.textColor,
+                  fontFamily: regularFont
+                }
+              ]}>
+                {t("language")}
+              </Text>
+            </View>
             <View style={styles.settingRight}>
-              <Text style={[styles.settingValue, { color: theme.textColor }]}>
+              <Text style={[
+                styles.settingValue, 
+                { 
+                  color: theme.textColor,
+                  fontFamily: regularFont
+                }
+              ]}>
                 {language === "th" ? t("thai") : t("english")}
               </Text>
-
               <Ionicons
-                name="chevron-forward-outline"
-                size={24}
+                name="chevron-forward"
+                size={20}
                 color={theme.textColor}
               />
             </View>
           </TouchableOpacity>
         </View>
 
-        <View
-          style={[
-            styles.settingItem,
-            { borderBottomColor: theme.secondaryColor },
-          ]}
-        >
-          <Ionicons
-            name="notifications-outline"
-            size={24}
-            color={theme.textColor}
-          />
-          <Text style={[styles.settingText, { color: theme.textColor }]}>
-            {t("notification")}
-          </Text>
-          <Switch
-            value={isNotificationEnabled}
-            onValueChange={() =>
-              setIsNotificationEnabled((prev) => {
-                const next = !prev;
-                if (next) sendTestLuckyColorNotification(); // 🔔 Send when toggled ON
-                return next;
-              })
-            }
-            trackColor={{ false: "#767577", true: theme.primaryColor }}
-          />
+        <Text style={[
+          styles.sectionTitle, 
+          { 
+            color: theme.primaryColor, 
+            marginTop: 25,
+            fontFamily: boldFont
+          }
+        ]}>
+          {t("notifications")}
+        </Text>
+
+        <View style={[styles.settingGroup, { backgroundColor: theme.cardBackground }]}>
+          <View style={styles.settingItem}>
+            <View style={styles.settingLeft}>
+              <View style={[styles.iconContainer, { backgroundColor: themeMode === 'dark' ? '#554388' : '#E5D8FF' }]}>
+                <Ionicons
+                  name="notifications-outline"
+                  size={20}
+                  color={themeMode === 'dark' ? '#BFA8FF' : '#6845A3'}
+                />
+              </View>
+              <Text style={[
+                styles.settingText, 
+                { 
+                  color: theme.textColor,
+                  fontFamily: regularFont
+                }
+              ]}>
+                {t("notification")}
+              </Text>
+            </View>
+            <Switch
+              trackColor={{
+                false: themeMode === 'dark' ? "#3A3A3C" : "#D1D1D6",
+                true: themeMode === 'dark' ? "#8A59FF" : "#A67CFF",
+              }}
+              thumbColor={isNotificationEnabled ? "#FFFFFF" : "#F4F3F4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={handleNotificationToggle}
+              value={isNotificationEnabled}
+            />
+          </View>
         </View>
       </ScrollView>
 
       {/* Language Modal */}
-      <Modal visible={isLanguageModalVisible} transparent animationType="slide">
+      <Modal visible={isLanguageModalVisible} transparent animationType="fade">
         <View style={styles.modalContainer}>
           <View
             style={[
@@ -163,37 +239,84 @@ export default function SettingsScreen() {
               { backgroundColor: theme.cardBackground },
             ]}
           >
-            <TouchableOpacity onPress={() => handleLanguageChange("en")}>
+            <View style={styles.modalHeader}>
+              <Text style={[
+                styles.modalTitle, 
+                { 
+                  color: theme.textColor,
+                  fontFamily: boldFont
+                }
+              ]}>
+                {t("language")}
+              </Text>
+              <View style={styles.modalDragHandle} />
+            </View>
+            
+            <TouchableOpacity 
+              onPress={() => handleLanguageChange("en")}
+              style={[
+                styles.modalOptionContainer,
+                language === "en" && { backgroundColor: themeMode === 'dark' ? '#554388' : '#EFE5FF' }
+              ]}
+            >
               <Text
                 style={[
                   styles.modalOption,
-                  { color: theme.textColor },
+                  { 
+                    color: theme.textColor,
+                    fontFamily: regularFont
+                  },
                   language === "en" && styles.selectedOption,
                 ]}
               >
                 {t("english")}
               </Text>
+              {language === "en" && (
+                <Ionicons name="checkmark" size={22} color={theme.primaryColor} />
+              )}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleLanguageChange("th")}>
+            
+            <TouchableOpacity 
+              onPress={() => handleLanguageChange("th")}
+              style={[
+                styles.modalOptionContainer,
+                language === "th" && { backgroundColor: themeMode === 'dark' ? '#554388' : '#EFE5FF' }
+              ]}
+            >
               <Text
                 style={[
                   styles.modalOption,
-                  { color: theme.textColor },
+                  { 
+                    color: theme.textColor,
+                    fontFamily: regularFont
+                  },
                   language === "th" && styles.selectedOption,
                 ]}
               >
                 {t("thai")}
               </Text>
+              {language === "th" && (
+                <Ionicons name="checkmark" size={22} color={theme.primaryColor} />
+              )}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setLanguageModalVisible(false)}>
-              <Text style={styles.cancelOption}>{t("cancel")}</Text>
+            
+            <TouchableOpacity 
+              onPress={() => setLanguageModalVisible(false)}
+              style={styles.cancelButton}
+            >
+              <Text style={[
+                styles.cancelText,
+                { fontFamily: boldFont }
+              ]}>
+                {t("cancel")}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
 
       {/* Theme Modal */}
-      <Modal visible={isThemeModalVisible} transparent animationType="slide">
+      <Modal visible={isThemeModalVisible} transparent animationType="fade">
         <View style={styles.modalContainer}>
           <View
             style={[
@@ -201,30 +324,77 @@ export default function SettingsScreen() {
               { backgroundColor: theme.cardBackground },
             ]}
           >
-            <TouchableOpacity onPress={() => handleThemeChange("light")}>
+            <View style={styles.modalHeader}>
+              <Text style={[
+                styles.modalTitle, 
+                { 
+                  color: theme.textColor,
+                  fontFamily: boldFont
+                }
+              ]}>
+                {t("theme")}
+              </Text>
+              <View style={styles.modalDragHandle} />
+            </View>
+            
+            <TouchableOpacity 
+              onPress={() => handleThemeChange("light")}
+              style={[
+                styles.modalOptionContainer,
+                themeMode === "light" && { backgroundColor: themeMode === 'dark' ? '#554388' : '#EFE5FF' }
+              ]}
+            >
               <Text
                 style={[
                   styles.modalOption,
-                  { color: theme.textColor },
+                  { 
+                    color: theme.textColor,
+                    fontFamily: regularFont
+                  },
                   themeMode === "light" && styles.selectedOption,
                 ]}
               >
                 {t("light")}
               </Text>
+              {themeMode === "light" && (
+                <Ionicons name="checkmark" size={22} color={theme.primaryColor} />
+              )}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleThemeChange("dark")}>
+            
+            <TouchableOpacity 
+              onPress={() => handleThemeChange("dark")}
+              style={[
+                styles.modalOptionContainer,
+                themeMode === "dark" && { backgroundColor: themeMode === 'dark' ? '#554388' : '#EFE5FF' }
+              ]}
+            >
               <Text
                 style={[
                   styles.modalOption,
-                  { color: theme.textColor },
+                  { 
+                    color: theme.textColor,
+                    fontFamily: regularFont
+                  },
                   themeMode === "dark" && styles.selectedOption,
                 ]}
               >
                 {t("dark")}
               </Text>
+              {themeMode === "dark" && (
+                <Ionicons name="checkmark" size={22} color={theme.primaryColor} />
+              )}
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setThemeModalVisible(false)}>
-              <Text style={styles.cancelOption}>{t("cancel")}</Text>
+            
+            <TouchableOpacity 
+              onPress={() => setThemeModalVisible(false)}
+              style={styles.cancelButton}
+            >
+              <Text style={[
+                styles.cancelText,
+                { fontFamily: boldFont }
+              ]}>
+                {t("cancel")}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -237,30 +407,63 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  settingContainer: {
+  scrollContent: {
     flex: 1,
     padding: 20,
-    paddingTop: 23,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    marginBottom: 10,
+    paddingLeft: 5,
+    textTransform: 'uppercase',
+  },
+  settingGroup: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   settingItem: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 15,
-    borderBottomWidth: 1,
+    paddingHorizontal: 16,
+  },
+  settingLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  iconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   settingText: {
-    fontSize: 18,
-    flex: 1,
-    marginLeft: 10,
+    fontSize: 16,
+    marginLeft: 14,
+    fontWeight: "500",
   },
   settingRight: {
     flexDirection: "row",
     alignItems: "center",
   },
   settingValue: {
-    fontSize: 16,
-    marginRight: 10,
+    fontSize: 14,
+    marginRight: 8,
+    opacity: 0.8,
+  },
+  versionText: {
+    textAlign: 'center',
+    fontSize: 12,
+    marginTop: 30,
+    opacity: 0.6,
   },
   modalContainer: {
     flex: 1,
@@ -268,25 +471,64 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    paddingVertical: 20,
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    alignItems: "center",
+    paddingTop: 15,
+    paddingBottom: 25,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+  },
+  modalHeader: {
+    alignItems: 'center',
+    marginBottom: 15,
+    position: 'relative',
+  },
+  modalDragHandle: {
+    width: 36,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: '#DDDDDD',
+    position: 'absolute',
+    top: -10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 10,
+  },
+  modalOptionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 16,
+    paddingHorizontal: 22,
+    marginVertical: 2,
   },
   modalOption: {
-    fontSize: 18,
-    paddingVertical: 12,
-    width: "100%",
-    textAlign: "center",
+    fontSize: 16,
   },
   selectedOption: {
-    fontWeight: "bold",
-    textDecorationLine: "underline",
+    fontWeight: "600",
   },
-  cancelOption: {
-    color: "red",
-    fontSize: 18,
-    paddingVertical: 12,
-    textAlign: "center",
+  cancelButton: {
+    marginTop: 15,
+    alignItems: 'center',
+    paddingVertical: 14,
+    marginHorizontal: 22,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255, 59, 48, 0.1)',
+  },
+  cancelText: {
+    color: '#FF3B30',
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  notificationInfo: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderTopWidth: 1,
+    paddingLeft: 60,
+  },
+  notificationInfoText: {
+    fontSize: 13,
+    opacity: 0.7,
   },
 });

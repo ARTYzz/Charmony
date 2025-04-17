@@ -8,6 +8,7 @@ import {
   ScrollView,
   Animated,
   Dimensions,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -56,9 +57,10 @@ export default function HomeScreen() {
   const [luckyColors, setLuckyColors] = useState([]);
   const [unluckyColors, setUnluckyColors] = useState([]);
 
-  // Animation state
+  // Enhanced Animation states
   const [fadeAnim] = useState(new Animated.Value(0));
-  const [slideAnim] = useState(new Animated.Value(30)); // สำหรับการเลื่อนขึ้น
+  const [slideAnim] = useState(new Animated.Value(40));
+  const [scaleAnim] = useState(new Animated.Value(0.95));
 
   // =============================================
   // Helper Functions
@@ -92,33 +94,45 @@ export default function HomeScreen() {
   function handleDaySelect(dayName) {
     setSelectedDay(dayName);
 
-    // เริ่ม animation เมื่อเปลี่ยนวัน
+    // Enhanced animation when changing day
     Animated.parallel([
       // Fade out
       Animated.timing(fadeAnim, {
         toValue: 0,
-        duration: 150,
+        duration: 200,
         useNativeDriver: true,
       }),
-      // Slide down (เตรียมเลื่อนขึ้น)
+      // Slide down
       Animated.timing(slideAnim, {
-        toValue: 50,
-        duration: 150,
+        toValue: 60,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      // Scale down
+      Animated.timing(scaleAnim, {
+        toValue: 0.92,
+        duration: 200,
         useNativeDriver: true,
       }),
     ]).start(() => {
-      // หลังจาก fade out และ slide down แล้ว ทำ fade in และ slide up
+      // After fade out and slide down, do fade in and slide up
       Animated.parallel([
         // Fade in
         Animated.timing(fadeAnim, {
           toValue: 1,
-          duration: 400,
+          duration: 500,
           useNativeDriver: true,
         }),
         // Slide up
         Animated.timing(slideAnim, {
           toValue: 0,
-          duration: 400,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        // Scale up
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 500,
           useNativeDriver: true,
         }),
       ]).start();
@@ -136,20 +150,28 @@ export default function HomeScreen() {
     setUnluckyColors(colors.unlucky || []);
   }, [selectedDay]);
 
-  // animation เมื่อโหลดหน้าจอ
+  // Initial animation when screen loads
   useEffect(() => {
-    // เริ่มต้นให้กล่องสีเลื่อนขึ้นมาเมื่อโหลด
-    Animated.parallel([
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 600,
-        useNativeDriver: true,
-      }),
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 600,
-        useNativeDriver: true,
-      }),
+    // Staggered animation for initial load
+    Animated.stagger(150, [
+      // First animate the selected day container
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+      ]),
     ]).start();
   }, []);
 
@@ -170,10 +192,13 @@ export default function HomeScreen() {
     );
   }
 
-  // Animation style ที่ใช้กับ Animated.View
+  // Animation style with improved effects
   const animationStyle = {
     opacity: fadeAnim,
-    transform: [{ translateY: slideAnim }],
+    transform: [
+      { translateY: slideAnim },
+      { scale: scaleAnim }
+    ],
   };
 
   return (
@@ -197,23 +222,25 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* แสดงวันที่เลือก */}
-        <View
-          style={[
-            styles.selectedDayContainer,
-            { backgroundColor: theme.cardBackground },
-          ]}
-        >
-          <MaterialCommunityIcons
-            name="calendar-star"
-            size={22}
-            color={theme.primaryColor}
-            style={styles.calendarIcon}
-          />
-          <Text style={[styles.selectedDayTitle, { color: theme.textColor }]}>
-            {t("SelectedDay")} :{" "}
-            <Text style={styles.dayNameText}>{selectedDay}</Text>
-          </Text>
-        </View>
+        <Animated.View style={[animationStyle, { width: '100%' }]}>
+          <View
+            style={[
+              styles.selectedDayContainer,
+              { backgroundColor: theme.cardBackground },
+            ]}
+          >
+            <MaterialCommunityIcons
+              name="calendar-star"
+              size={22}
+              color={theme.primaryColor}
+              style={styles.calendarIcon}
+            />
+            <Text style={[styles.selectedDayTitle, { color: theme.textColor }]}>
+              {t("SelectedDay")} :{" "}
+              <Text style={styles.dayNameText}>{t(selectedDay)}</Text>
+            </Text>
+          </View>
+        </Animated.View>
 
         {/* ปฏิทิน */}
         <View style={styles.calendarWrapper}>
@@ -232,6 +259,7 @@ export default function HomeScreen() {
             <View
               style={[
                 styles.colorContainer,
+                styles.luckyColorContainer,
                 { backgroundColor: theme.cardBackground },
               ]}
             >
@@ -241,7 +269,7 @@ export default function HomeScreen() {
                   {t("TodayLuckyColor")}
                 </Text>
                 <View style={styles.colorIndicator}>
-                  <Ionicons name="star" size={16} color="#FFD700" />
+                  <Ionicons name="star" size={18} color="#FFD700" />
                   <Text style={styles.indicatorText}>{t("lucky")}</Text>
                 </View>
               </View>
@@ -251,9 +279,7 @@ export default function HomeScreen() {
                 {luckyColors.length > 0 ? (
                   luckyColors.map((color) => renderColorBox(color, true))
                 ) : (
-                  <Text
-                    style={[styles.noColorText, { color: theme.textColor }]}
-                  >
+                  <Text style={[styles.noColorText, { color: theme.textColor }]}>
                     {t("noLuckyColors")}
                   </Text>
                 )}
@@ -267,18 +293,24 @@ export default function HomeScreen() {
                     navigation.navigate("luckyColorBoost", { day: selectedDay })
                   }
                 >
-                  <Text
-                    style={[styles.seeMoreText, { color: theme.primaryColor }]}
-                  >
-                    {t("SeeMore")}
-                  </Text>
-                  <Ionicons
-                    name="chevron-forward"
-                    size={14}
-                    color={theme.primaryColor}
-                  />
+                  <View style={styles.seeMoreButton}>
+                    <Text
+                      style={[styles.seeMoreText, { color: theme.primaryColor }]}
+                    >
+                      {t("See More")}
+                    </Text>
+                    <Ionicons
+                      name="chevron-forward"
+                      size={16}
+                      color={theme.primaryColor}
+                    />
+                  </View>
                 </TouchableOpacity>
               )}
+              
+              {/* Decorative elements */}
+              <View style={[styles.decorCircle, styles.decorCircle1]} />
+              <View style={[styles.decorCircle, styles.decorCircle2]} />
             </View>
           </Animated.View>
 
@@ -287,6 +319,7 @@ export default function HomeScreen() {
             <View
               style={[
                 styles.colorContainer,
+                styles.unluckyColorContainer,
                 { backgroundColor: theme.cardBackground },
               ]}
             >
@@ -296,7 +329,7 @@ export default function HomeScreen() {
                   {t("TodayUnluckyColor")}
                 </Text>
                 <View style={[styles.colorIndicator, styles.unluckyIndicator]}>
-                  <Ionicons name="alert-circle" size={16} color="#FF6B6B" />
+                  <Ionicons name="alert-circle" size={18} color="#FF6B6B" />
                   <Text style={[styles.indicatorText, styles.unluckyText]}>
                     {t("avoid")}
                   </Text>
@@ -308,9 +341,7 @@ export default function HomeScreen() {
                 {unluckyColors.length > 0 ? (
                   unluckyColors.map((color) => renderColorBox(color, false))
                 ) : (
-                  <Text
-                    style={[styles.noColorText, { color: theme.textColor }]}
-                  >
+                  <Text style={[styles.noColorText, { color: theme.textColor }]}>
                     {t("noUnluckyColors")}
                   </Text>
                 )}
@@ -324,18 +355,24 @@ export default function HomeScreen() {
                     navigation.navigate("luckyColorBoost", { day: selectedDay })
                   }
                 >
-                  <Text
-                    style={[styles.seeMoreText, { color: theme.primaryColor }]}
-                  >
-                    {t("See More")}
-                  </Text>
-                  <Ionicons
-                    name="chevron-forward"
-                    size={14}
-                    color={theme.primaryColor}
-                  />
+                  <View style={styles.seeMoreButton}>
+                    <Text
+                      style={[styles.seeMoreText, { color: theme.primaryColor }]}
+                    >
+                      {t("See More")}
+                    </Text>
+                    <Ionicons
+                      name="chevron-forward"
+                      size={16}
+                      color={theme.primaryColor}
+                    />
+                  </View>
                 </TouchableOpacity>
               )}
+              
+              {/* Decorative elements */}
+              <View style={[styles.decorCircle, styles.decorCircle3]} />
+              <View style={[styles.decorCircle, styles.decorCircle4]} />
             </View>
           </Animated.View>
         </View>
@@ -354,72 +391,91 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
   },
   calendarWrapper: {
-    marginVertical: 10,
+    marginVertical: 15,
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
   },
   colorHighlightContainer: {
-    marginTop: 1,
-    marginBottom: 15,
+    marginTop: 10,
+    marginBottom: 20,
   },
 
   // Selected Day Styles
   selectedDayContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 15,
-    borderRadius: 15,
-    marginHorizontal: 8,
-    marginTop: 16,
-    marginBottom: 14,
-    padding: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 18,
+    borderRadius: 18,
+    marginHorizontal: 4,
+    marginTop: 20,
+    marginBottom: 18,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowRadius: 8,
+    elevation: 5,
     overflow: "hidden",
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.05)",
-    width: "95%",
+    width: "98%",
     alignSelf: "center",
   },
   calendarIcon: {
-    marginRight: 10,
+    marginRight: 12,
     opacity: 0.9,
   },
   selectedDayTitle: {
     fontSize: 17,
     fontFamily: "Nunito-SemiBold",
+    letterSpacing: 0.3,
   },
   dayNameText: {
     fontFamily: "Nunito-Bold",
-    fontSize: 17,
+    fontSize: 18,
     color: "#FF8C00",
   },
 
   // Section Header
   highlightHeader: {
-    fontSize: 18,
-    fontFamily: "Nunito-SemiBold",
-    marginVertical: 10,
-    marginLeft: 10,
+    fontSize: 19,
+    fontFamily: "Nunito-Bold",
+    marginVertical: 14,
+    marginLeft: 12,
     opacity: 0.9,
+    letterSpacing: 0.5,
   },
 
   // Color Section Styles
   colorContainer: {
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 20,
+    padding: 18,
     margin: 8,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 6,
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.03)",
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  luckyColorContainer: {
+    borderLeftWidth: 4,
+    borderLeftColor: "#FFD700",
+  },
+  unluckyColorContainer: {
+    borderLeftWidth: 4,
+    borderLeftColor: "#FF6B6B",
   },
 
   // Icon Container
@@ -427,29 +483,30 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 16,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "600",
     fontFamily: "Nunito-Bold",
+    letterSpacing: 0.3,
   },
 
   // Badge Styles
   colorIndicator: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255, 215, 0, 0.15)",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 12,
+    backgroundColor: "rgba(255, 215, 0, 0.18)",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 14,
   },
   unluckyIndicator: {
-    backgroundColor: "rgba(255, 107, 107, 0.15)",
+    backgroundColor: "rgba(255, 107, 107, 0.18)",
   },
   indicatorText: {
     fontSize: 13,
-    fontFamily: "Nunito-SemiBold",
+    fontFamily: "Nunito-Bold",
     color: "#FFD700",
     marginLeft: 5,
   },
@@ -463,55 +520,103 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 12,
   },
   colorBox: {
-    width: 95,
-    height: 95,
+    width: 100,
+    height: 100,
     margin: 8,
-    borderRadius: 14,
+    borderRadius: 16,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 5,
     overflow: "hidden",
     borderWidth: 1,
-    borderColor: "rgba(0,0,0,0.05)",
+    borderColor: "rgba(255,255,255,0.15)",
   },
   colorBoxInner: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 6,
+    padding: 8,
   },
   colorText: {
     fontWeight: "bold",
     textAlign: "center",
     fontFamily: "Nunito-Bold",
-    fontSize: 14,
+    fontSize: 15,
+    textShadowColor: 'rgba(0,0,0,0.2)',
+    textShadowOffset: {width: 0, height: 1},
+    textShadowRadius: 2,
   },
   noColorText: {
     fontFamily: "Nunito-Italic",
-    fontSize: 14,
+    fontSize: 15,
     fontStyle: "italic",
-    opacity: 0.6,
-    padding: 16,
+    opacity: 0.7,
+    padding: 20,
+    textAlign: "center",
   },
 
   // See More Styles
   seeMoreContainer: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 12,
-    paddingTop: 10,
+    marginTop: 16,
+    paddingTop: 12,
     borderTopWidth: 1,
     borderTopColor: "rgba(0,0,0,0.05)",
   },
+  seeMoreButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 16,
+    backgroundColor: "rgba(0,0,0,0.03)",
+  },
   seeMoreText: {
-    fontSize: 13,
-    fontFamily: "Nunito-SemiBold",
-    marginRight: 3,
+    fontSize: 14,
+    fontFamily: "Nunito-Bold",
+    marginRight: 4,
+  },
+  
+  // Decorative elements
+  decorCircle: {
+    position: 'absolute',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    opacity: 0.06,
+  },
+  decorCircle1: {
+    backgroundColor: '#FFD700',
+    top: -20,
+    right: -20,
+  },
+  decorCircle2: {
+    backgroundColor: '#FFD700',
+    bottom: -30,
+    left: -30,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  decorCircle3: {
+    backgroundColor: '#FF6B6B',
+    top: -20,
+    right: -20,
+  },
+  decorCircle4: {
+    backgroundColor: '#FF6B6B',
+    bottom: -30,
+    left: -30,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
 });
