@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["RECEIVE_BOOT_COMPLETED"]
+      "permissions": ["RECEIVE_BOOT_COMPLETED"],
+      "package": "com.artyz.MyExpo"
     },
     "plugins": ["expo-notifications"],
     "web": {
@@ -39,6 +40,11 @@
         "asset": "./assets/fonts/Nunito-Light.ttf",
         "family": "Nunito-Light"
       }
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7fee8992-e2c0-495e-ab44-1162b771d075"
+      }
+    }
   }
 }
